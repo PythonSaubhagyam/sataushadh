@@ -84,8 +84,15 @@ export default function Footer() {
             {/* <Stack align={"flex-start"} color="brand.900"> */}
 
             {/* <SimpleGrid columns={{ base: 1, md: 3 }}> */}
-            <Stack align={"flex-start"} color="text.300">
-              <ListHeader style={{ color: "#436131" }}>Quick Links</ListHeader>
+            <Stack color="text.300">
+              <Stack
+                ml={{ md: "50%" }}
+                align={{ md: "flex-start", base: "center" }}
+              >
+                <ListHeader style={{ color: "text.500" }}>
+                  Quick Links
+                </ListHeader>
+              </Stack>
               <Link
                 textDecoration="none"
                 _hover={{ color: "text.500" }}
@@ -114,17 +121,33 @@ export default function Footer() {
                 textDecoration="none"
                 _hover={{ color: "text.500" }}
                 as={RouterLink}
-                to={"/store-locator"}
+                to={"/organic-living"}
               >
-                Store Locate
+                Organic Living
               </Link>
               <Link
                 textDecoration="none"
                 _hover={{ color: "text.500" }}
                 as={RouterLink}
-                to={"/contact-us"}
+                to={"/resources"}
               >
-                Contact Us
+                Resources
+              </Link>
+              <Link
+                textDecoration="none"
+                _hover={{ color: "text.500" }}
+                as={RouterLink}
+                to={"/appreciation"}
+              >
+                Appreciation
+              </Link>
+              <Link
+                textDecoration="none"
+                _hover={{ color: "text.500" }}
+                as={RouterLink}
+                to={"/testimonials"}
+              >
+                Testimonials
               </Link>
             </Stack>
             <Stack align={"flex-start"} color="text.300">
@@ -157,7 +180,24 @@ export default function Footer() {
                       flexDirection={"column"}
                     >
                       {!isMobile && <ListHeader>&nbsp;</ListHeader>}
-
+                      <Link
+                        textDecoration="none"
+                        _hover={{ color: "text.500" }}
+                        as={RouterLink}
+                        marginTop={2}
+                        to={"/store-locator"}
+                      >
+                        tore Locate
+                      </Link>
+                      <Link
+                        textDecoration="none"
+                        _hover={{ color: "text.500" }}
+                        as={RouterLink}
+                        marginTop={2}
+                        to={"/contact-us"}
+                      >
+                        Contact Us
+                      </Link>
                       <Link
                         textDecoration="none"
                         _hover={{ color: "text.500" }}
@@ -207,6 +247,22 @@ export default function Footer() {
                   </>
                 ) : (
                   <>
+                    <Link
+                      textDecoration="none"
+                      _hover={{ color: "text.500" }}
+                      as={RouterLink}
+                      to={"/store-locator"}
+                    >
+                      Store Locate
+                    </Link>
+                    <Link
+                      textDecoration="none"
+                      _hover={{ color: "text.500" }}
+                      as={RouterLink}
+                      to={"/contact-us"}
+                    >
+                      Contact Us
+                    </Link>
                     <Link
                       textDecoration="none"
                       _hover={{ color: "text.500" }}
@@ -311,8 +367,10 @@ export default function Footer() {
                 </Flex>
               </Stack> */}
             {/* </Stack> */}
-            <Stack align={"flex-start"} color="text.300" mt={{ md: 3 }}>
-              <ListHeader align={"flex-start"}>Customer Support</ListHeader>
+            <Stack color="text.300" mt={{ md: 3 }}>
+              <Stack align={{ md: "flex-start", base: "center" }}>
+                <ListHeader gap={"3"}>Customer Support</ListHeader>
+              </Stack>
               <Link
                 textDecoration="none"
                 _hover={{ color: "text.500" }}
@@ -346,7 +404,7 @@ export default function Footer() {
               </Link>
             </Stack>
             <Stack align={"center"} mt={{ md: 3 }}>
-               <ListHeader align={"flex-start"}>Talk To Our Vaidya</ListHeader>
+              {/* <ListHeader align={"flex-start"}>Talk To Our Vaidya</ListHeader>
               <Link
                 textDecoration="none"
                 _hover={{ color: "text.500" }}
@@ -370,7 +428,7 @@ export default function Footer() {
               >
                 <FaPhoneAlt size={16} style={{ marginRight: 8 }} />
                 +91 6351 9797 12
-              </Link> 
+              </Link> */}
               {/* </Stack>
 
             <Stack align={"flex-start"} gap={"3"} ml={{ lg: 10 }} color="brand.900"> */}
