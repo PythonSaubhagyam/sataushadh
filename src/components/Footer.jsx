@@ -46,7 +46,7 @@ export default function Footer() {
     <>
       <hr />
       <Container maxW={"container.xl"}>
-        <Box className="scrolling-text-container">
+      <Box className="scrolling-text-container">
           <Text
             align={"center"}
             color="brand.900"
@@ -55,8 +55,8 @@ export default function Footer() {
             fontSize={{ base: "sm", lg: "md" }}
             className="scrolling-text"
           >
-            For Deliveries in America, Canada, Europe, UAE, Singapore, etc Email
-            us on
+            For deliveries in the USA, UAE, UK, Singapore, Canada and Australia,
+            email us at{" "}
             <Link
               target="_blank"
               href="mailto:export@suryanorganic.com"
@@ -65,7 +65,7 @@ export default function Footer() {
             >
               export@suryanorganic.com
             </Link>{" "}
-            or Whatsapp on{" "}
+            or WhatsApp us at{" "}
             <Link
               target="_blank"
               href="https://wa.me/+916354800089?text=Hello%2C%20this%20is%20a%20test%20message"
@@ -93,6 +93,14 @@ export default function Footer() {
                   Quick Links
                 </ListHeader>
               </Stack>
+              <Link
+                textDecoration="none"
+                _hover={{ color: "text.500" }}
+                as={RouterLink}
+                to={"/"}
+              >
+                Home
+              </Link>
               <Link
                 textDecoration="none"
                 _hover={{ color: "text.500" }}
@@ -169,91 +177,14 @@ export default function Footer() {
                 Contact Us
               </Link> */}
 
-              <>
-                {isMobiles ? (
-                  <>
-                    <Grid
-                      align={"flex"}
-                      position={"absolute"}
-                      marginTop={"-220px"}
-                      marginLeft={"140px"}
-                      flexDirection={"column"}
-                    >
-                      {!isMobile && <ListHeader>&nbsp;</ListHeader>}
-                      <Link
-                        textDecoration="none"
-                        _hover={{ color: "text.500" }}
-                        as={RouterLink}
-                        marginTop={2}
-                        to={"/store-locator"}
-                      >
-                        tore Locate
-                      </Link>
-                      <Link
-                        textDecoration="none"
-                        _hover={{ color: "text.500" }}
-                        as={RouterLink}
-                        marginTop={2}
-                        to={"/contact-us"}
-                      >
-                        Contact Us
-                      </Link>
-                      <Link
-                        textDecoration="none"
-                        _hover={{ color: "text.500" }}
-                        as={RouterLink}
-                        marginTop={2}
-                        to={"/faq"}
-                      >
-                        FAQ
-                      </Link>
-                      <Link
-                        textDecoration="none"
-                        _hover={{ color: "text.500" }}
-                        as={RouterLink}
-                        marginTop={2}
-                        to={"/terms-and-conditions"}
-                      >
-                        Terms & Conditions
-                      </Link>
-                      <Link
-                        textDecoration="none"
-                        _hover={{ color: "text.500" }}
-                        as={RouterLink}
-                        marginTop={2}
-                        to={"/shipping-policy"}
-                      >
-                        Shipping Policy
-                      </Link>
-                      <Link
-                        textDecoration="none"
-                        _hover={{ color: "text.500" }}
-                        as={RouterLink}
-                        marginTop={2}
-                        to={"/return-and-refund-policy"}
-                      >
-                        Return & Refund Policy
-                      </Link>
-                      <Link
-                        textDecoration="none"
-                        _hover={{ color: "text.500" }}
-                        as={RouterLink}
-                        marginTop={2}
-                        to={"/inspire-and-support"}
-                      >
-                        Inspire & Support
-                      </Link>
-                    </Grid>
-                  </>
-                ) : (
-                  <>
+             
                     <Link
                       textDecoration="none"
                       _hover={{ color: "text.500" }}
                       as={RouterLink}
                       to={"/store-locator"}
                     >
-                      Store Locate
+                      Store Locator
                     </Link>
                     <Link
                       textDecoration="none"
@@ -303,9 +234,15 @@ export default function Footer() {
                     >
                       Inspire & Support
                     </Link>
-                  </>
-                )}
-              </>
+                    <Link
+                      textDecoration="none"
+                      _hover={{ color: "text.500" }}
+                      as={RouterLink}
+                      to={"/privacy-policy"}
+                    >
+                      Privacy Policy
+                    </Link>
+                 
             </Stack>
             {/* </SimpleGrid> */}
             {/* </Stack> */}
