@@ -16,14 +16,14 @@ const Aboutus = () => {
       </Container>
       <Container maxW={"container.xl"} mb={4} px={0}>
         <Image src={require("../assets/About us/about-us.jpg")} />
-        <Flex flexDirection={"column"} gap={3} px={20} py={10}>
+        <Flex flexDirection={"column"} gap={3} px={{md:20,base:9}} py={10}>
           <Image
             src={require("../assets/About us/WhatsApp Image 2020-05-15 at 6.27.36 PM (1).jpeg")}
           />
           <Box
             fontWeight={"600"}
             color="text.500"
-            fontSize={"27px"}
+            fontSize={{md:"27px",base:24}}
             textAlign={"center"}
           >
             About Sat Aushadh
@@ -56,7 +56,7 @@ const Aboutus = () => {
             <br />
             <br />
           </Box>
-          <Heading textAlign={"center"} color={"text.500"} fontSize={"3xl"}>
+          <Heading textAlign={"center"} color={"text.500"} fontSize={{md:"27px",base:22}}>
             Know more About our Parent Company
           </Heading>
           <Image
@@ -64,7 +64,7 @@ const Aboutus = () => {
             w={"80%"}
             src={require("../assets/About us/suryan organic dada.jpg")}
           />
-          <Text color={"text.300"} my={8} textAlign={"center"} >
+          <Text color={"text.300"} my={8} textAlign={"justify"} >
             Our parent Suryan Organic has more than 10 years of natural farming,
             food research and development experience. We are associated with
             over 5,000 ethical and naturally growing trusted farmers, from all

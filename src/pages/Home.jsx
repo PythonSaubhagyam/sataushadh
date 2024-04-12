@@ -85,10 +85,12 @@ const Licences = [
   {
     src: require("../assets/HomaPage/lPCR_logo (1).png"),
     alt: "CoffeeCo",
+    size:110
   },
   {
     src:require("../assets/HomaPage/aayush (1).png"),
     alt: "Shishu veda",
+    size:110
   },
 ];
 
@@ -248,7 +250,7 @@ export default function Home() {
           borderRadius={"10px"}
           borderColor={"brand.500"}
           _hover={{ bgColor: "brand.500", color: "white" }}
-          mx={"45%"}
+          mx={{lg:"45%",md:"42%",base:"33%"}}
         >
           Read more
         </Button>
@@ -279,7 +281,7 @@ export default function Home() {
       </Container>
 
       <ProductListSectionHome
-        title="New Arrival"
+        title="New Arrivals"
         loading={loading}
         products={newArrival}
       />
@@ -291,7 +293,7 @@ export default function Home() {
       />
 
       <ProductListSectionHome
-        title="Best Seller Of All Time"
+        title="All Time Best Sellers"
         loading={loading}
         products={BestSeller}
       />
@@ -353,7 +355,7 @@ export default function Home() {
         >
           <Heading
             color="brand.500"
-            size="lg"
+            fontSize={{md:33,base:21}}
             mx="auto"
             align={"center"}
             mt={3}
@@ -362,8 +364,7 @@ export default function Home() {
           </Heading>
         </Box>
         <Text my={5} textAlign={"center"} color="text.300">
-          We are committed to quality and each of our facility is independently
-          certified by an industry-accredited agency.
+        We are committed to quality and each of our facilities is independently certified by an industry-accredited agency.
         </Text>
         <Flex
           justifyContent="space-evenly"
@@ -402,13 +403,13 @@ export default function Home() {
         >
           <Heading
             color="brand.500"
-            size="lg"
+            fontSize={{md:33,base:22}}
             mx="auto"
             align={"center"}
             my={5}
             pb={"10px"}
           >
-            LICENCES & AFFILIATION
+            LICENSES & AFFILIATIONS
           </Heading>
         </Box>
         <Grid
@@ -420,14 +421,15 @@ export default function Home() {
           gap={6}
           my={10}
           px={{xl:"12%",md:10}}
+          alignItems={"center"}
         >
           {Licences.map((data) => (
             <GridItem>
-              <Image src={data.src}  />
+              <Image src={data.src} mx={"auto"} boxSize={{base:140,md:data.size}}  />
             </GridItem>
           ))}
         </Grid>
-         <Image mx={"auto"} src={require("../assets/HomaPage/sataushadh(1).jpg")} w={"70%"} />
+         <Image mx={"auto"} my={20} src={require("../assets/HomaPage/sataushadh(1).jpg")} w={"65%"} />
         <Box
           w="100%"
           backgroundSize="100%"
@@ -436,13 +438,13 @@ export default function Home() {
         >
           <Heading
             color="brand.500"
-            size="lg"
+            fontSize={{md:33,base:20}}
             mx="auto"
             align={"center"}
             my={7}
             pb={"10px"}
           >
-            SERVING TO THE COUNTRIES
+            OUR SERVICES ARE AVAILABLE IN
           </Heading>
         </Box>
         <Box display={"flex"} justifyContent={"center"}>
@@ -465,7 +467,7 @@ export default function Home() {
         >
           <Heading
             color="brand.500"
-            size="lg"
+             fontSize={{md:33,base:22}}
             mx="auto"
             align={"center"}
             my={"5"}
