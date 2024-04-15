@@ -1131,7 +1131,13 @@ export default function Navbar() {
                           key={index}
                           onMouseEnter={() => handleShow1(section.children)}
                           onClick={() =>
-                            navigate(`/shop?category=${section.id}`)
+                            navigate(
+                              `/shop?page=1&category=${
+                                section.id
+                              }&category_name=${encodeURIComponent(
+                                section?.name
+                              )}`
+                            )
                           }
                           sx={{
                             "&:hover": {
@@ -1154,7 +1160,13 @@ export default function Navbar() {
                         fontSize={"14"}
                         key={subIndex}
                         onMouseEnter={() => handleShowSubMenu(item.children)}
-                        onClick={() => navigate(`/shop?category=${item.id}`)}
+                        onClick={() =>
+                          navigate(
+                            `/shop?page=1&category=${
+                              item.id
+                            }&category_name=${encodeURIComponent(item?.name)}`
+                          )
+                        }
                         sx={{
                           "&:hover": {
                             backgroundColor: "brand.500",
@@ -1171,7 +1183,13 @@ export default function Navbar() {
                       <MenuItem
                         fontSize={"14"}
                         key={nestedIndex}
-                        onClick={() => navigate(`/shop?category=${item.id}`)}
+                        onClick={() =>
+                          navigate(
+                            `/shop?page=1&category=${
+                              item.id
+                            }&category_name=${encodeURIComponent(item?.name)}`
+                          )
+                        }
                         sx={{
                           "&:hover": {
                             backgroundColor: "brand.500",
