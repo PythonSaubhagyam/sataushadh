@@ -1110,13 +1110,13 @@ export default function Navbar() {
                 </MenuButton>
                 <MenuList
                   as={Grid}
-                  width={500}
+                  width={600}
                   //height={400}
-                  templateColumns="repeat(9, 1fr)"
+                  templateColumns="repeat(10, 1fr)"
                   onMouseLeave={handleClose1}
                   zIndex={9999}
                 >
-                  <GridItem colSpan={3} overflow="auto">
+                  <GridItem colSpan={4} overflow="auto">
                     {megaCategories?.map((section, index) => (
                       <>
                         <MenuItem
@@ -1127,7 +1127,7 @@ export default function Navbar() {
                               alt=""
                             />
                           }
-                          fontSize={"14"}
+                          fontSize={"13"}
                           key={index}
                           onMouseEnter={() => handleShow1(section.children)}
                           onClick={() =>
@@ -1157,7 +1157,7 @@ export default function Navbar() {
                   <GridItem colSpan={3} overflow="auto">
                     {megaSubCategories?.map((item, subIndex) => (
                       <MenuItem
-                        fontSize={"14"}
+                        fontSize={"13"}
                         key={subIndex}
                         onMouseEnter={() => handleShowSubMenu(item.children)}
                         onClick={() =>
@@ -1181,7 +1181,7 @@ export default function Navbar() {
                   <GridItem colSpan={3} overflow="auto">
                     {nestedCategories?.map((item, nestedIndex) => (
                       <MenuItem
-                        fontSize={"14"}
+                        fontSize={"13"}
                         key={nestedIndex}
                         onClick={() =>
                           navigate(
