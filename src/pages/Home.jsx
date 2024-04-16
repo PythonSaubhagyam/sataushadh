@@ -42,23 +42,23 @@ import Testimonials from "../components/testimonials";
 
 const images = [
   {
-    image1: require("../assets/HomaPage/amla juice.png"),
+    image1: require("../assets/HomaPage/amla.jpg"),
     id:1770
   },
   {
-    image1: require("../assets/HomaPage/triphala powder 22222.png"),
+    image1: require("../assets/HomaPage/triphla powder.jpg"),
     id:1783
   },
   {
-    image1: require("../assets/HomaPage/moringa powder.png"),
+    image1: require("../assets/HomaPage/moringa.jpg"),
     id:1785
   },
   {
-    image1: require("../assets/HomaPage/wheat grass juice.png"),
+    image1: require("../assets/HomaPage/wheatgrass.jpg"),
     id:1773
   },
   {
-    image1: require("../assets/HomaPage/sprirulina powder.png"),
+    image1: require("../assets/HomaPage/spirulina.jpg"),
     id:1786
   },
 ];
@@ -281,7 +281,7 @@ export default function Home() {
       </Container>
 
       <ProductListSectionHome
-        title="New Arrivals"
+        title="Try Our New Products"
         loading={loading}
         products={newArrival}
       />
