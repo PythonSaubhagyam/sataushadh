@@ -69,28 +69,32 @@ const Licences = [
   {
     src:require("../assets/HomaPage/apeda (1).png"),
     alt: "Gir Gauveda",
+    size:180
   },
   {
     src:  require("../assets/HomaPage/fassai_2 (1).png"),
     alt: "So Good",
+    size:180
   },
   {
     src:require("../assets/HomaPage/MSME.png"),
     alt: "Spices Board",
+    size:180
   },
   {
     src:require("../assets/HomaPage/spices_board (1).png"),
     alt: "Himalayan Mountain",
+    size:180
   },
   {
     src: require("../assets/HomaPage/lPCR_logo (1).png"),
     alt: "CoffeeCo",
-    size:110
+    size:140
   },
   {
     src:require("../assets/HomaPage/aayush (1).png"),
     alt: "Shishu veda",
-    size:110
+    size:140
   },
 ];
 
@@ -336,13 +340,8 @@ export default function Home() {
             <StatHelpText color="text.500">Countries</StatHelpText>
           </Stat>
 
-          <Stat>
-            <StatNumber color="text.500" fontSize={{ base: "3xl", md: "3xl" }}>
-              15+
-            </StatNumber>
-            <StatHelpText color="text.500">Stores</StatHelpText>
-          </Stat>
-
+         
+         
          
         </SimpleGrid>
       </Container>
@@ -425,7 +424,7 @@ export default function Home() {
         >
           {Licences.map((data) => (
             <GridItem>
-              <Image src={data.src} mx={"auto"} boxSize={{base:140,md:data.size}}  />
+              <Image src={data.src} mx={"auto"} boxSize={{base:130,md:data.size}}    />
             </GridItem>
           ))}
         </Grid>
