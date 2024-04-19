@@ -67,6 +67,10 @@ import { debounce } from "lodash";
 
 const Links = [
   {
+    name: "Consult Our Vaidya",
+    location: "/consult-our-vaidya",
+  },
+  {
     name: "About us",
     location: "/about-us",
   },
@@ -90,10 +94,7 @@ const Links = [
   //   name: "Franchise",
   //   location: "/franchise",
   // },
-  {
-    name: "Consult Our Vaidya",
-    location: "/consult-our-vaidya",
-  },
+ 
   {
     name: "Store Locator",
     location: "/store-locator",
