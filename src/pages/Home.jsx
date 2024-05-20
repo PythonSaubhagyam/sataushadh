@@ -66,36 +66,36 @@ const images = [
 
 
 const Licences = [
-  {
-    src:require("../assets/HomaPage/apeda (1).png"),
-    alt: "Gir Gauveda",
-    size:180
-  },
-  {
-    src:  require("../assets/HomaPage/fassai_2 (1).png"),
-    alt: "So Good",
-    size:180
-  },
+  // {
+  //   src:require("../assets/HomaPage/apeda (1).png"),
+  //   alt: "Gir Gauveda",
+  //   size:180
+  // },
+  // {
+  //   src:  require("../assets/HomaPage/fassai_2 (1).png"),
+  //   alt: "So Good",
+  //   size:180
+  // },
   {
     src:require("../assets/HomaPage/MSME.png"),
-    alt: "Spices Board",
+    alt: "MSME",
     size:180
   },
-  {
-    src:require("../assets/HomaPage/spices_board (1).png"),
-    alt: "Himalayan Mountain",
-    size:180
-  },
-  {
-    src: require("../assets/HomaPage/lPCR_logo (1).png"),
-    alt: "CoffeeCo",
-    size:140
-  },
-  {
-    src:require("../assets/HomaPage/aayush (1).png"),
-    alt: "Shishu veda",
-    size:140
-  },
+  // {
+  //   src:require("../assets/HomaPage/spices_board (1).png"),
+  //   alt: "Himalayan Mountain",
+  //   size:180
+  // },
+  // {
+  //   src: require("../assets/HomaPage/lPCR_logo (1).png"),
+  //   alt: "CoffeeCo",
+  //   size:140
+  // },
+  // {
+  //   src:require("../assets/HomaPage/aayush (1).png"),
+  //   alt: "Shishu veda",
+  //   size:140
+  // },
 ];
 
 const banner = [
@@ -483,8 +483,8 @@ export default function Home() {
         <Grid
           templateColumns={{
             base: "repeat(1, 1fr)",
-            md: "repeat(3, 1fr)",
-            xl: "repeat(6, 1fr)",
+            md: "repeat(1, 1fr)",
+            xl: "repeat(1, 1fr)",
           }}
           gap={6}
           my={10}
