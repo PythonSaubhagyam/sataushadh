@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import Carousel from "../components/Carousel";
 import CarouselWithLinks from "../components/CarouselWithLinks";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import ScrollToTop from "../components/ScrollToTop";
 
 import ProductListSectionHome from "../components/ProductListSectionHome";
 
@@ -373,7 +374,7 @@ export default function Home() {
       </Container>
       <Container backgroundColor={"bg.500"} maxW={"container.xl"} px={0} py={2}>
         <SimpleGrid
-          columns={[2, 3, null, 5]}
+          columns={[2, 3, null, 4]}
           px={6}
           maxW={"container.xl"}
           my={6}
@@ -487,7 +488,7 @@ export default function Home() {
             xl: "repeat(1, 1fr)",
           }}
           gap={6}
-          my={10}
+          //my={10}
           px={{xl:"12%",md:10}}
           alignItems={"center"}
         >
@@ -558,6 +559,7 @@ export default function Home() {
           />
         </Container>
       </Container>
+      <ScrollToTop/>
       <Footer />
       {/* </>
       )} */}
