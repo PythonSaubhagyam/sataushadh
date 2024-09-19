@@ -1292,16 +1292,16 @@ export default function Navbar() {
             >
               <FaGooglePlay fontSize={20} />
             </Link>
-            {/* <Link
+             <Link
               _hover={{ color: "text.500" }}
               isExternal={true}
               as={ReactRouterLink}
               to={
-                "https://apps.apple.com/in/app/sose-sidha-kisan-se/id6447752737"
+                "https://apps.apple.com/in/app/sat-aushadh/id6478005800"
               }
             >
               <FaApple fontSize={22} />
-            </Link> */}
+            </Link> 
           </GridItem>
         </Grid>
       </Container>
