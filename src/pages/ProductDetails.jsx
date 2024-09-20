@@ -728,7 +728,7 @@ export default function ProductDetails() {
             </Container>
           )}
 
-          {relatedProducts && relatedProducts?.length > 0 && (
+          
             <ProductListSection
               title="Related Products"
               products={relatedProducts}
@@ -737,9 +737,9 @@ export default function ProductDetails() {
               fontSize={{ base: "sm", lg: "md" }}
               type={"carousal"}
             />
-          )}
+          
 
-          {otherProducts && otherProducts?.length > 0 && (
+          
             <ProductListSection
               title="Other Products"
               products={otherProducts}
@@ -748,9 +748,9 @@ export default function ProductDetails() {
               fontSize={{ base: "sm", lg: "md" }}
               type={"carousal"}
             />
-          )}
+          
 
-          {recentlyViewedProducts && recentlyViewedProducts?.length > 0 && (
+          
             <ProductListSection
               title="Recently Viewed Products"
               products={recentlyViewedProducts}
@@ -759,7 +759,7 @@ export default function ProductDetails() {
               fontSize={{ base: "sm", lg: "md" }}
               type={"carousal"}
             />
-          )}
+         
 
           <Modal
             size={"xl"}
