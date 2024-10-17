@@ -183,16 +183,6 @@ export default function Home() {
     }
     setLoading(false);
   }
-  async function getImage() {
-    const params = {};
-    const response = await client.get("/lower-section", {
-      params: params,
-    });
-    if (response.data.status === true) {
-      setSections(response.data.data);
-    }
-  }
-
   async function getArrival () {
     const response = await client.get("newarrival/list")
       if(response) {
