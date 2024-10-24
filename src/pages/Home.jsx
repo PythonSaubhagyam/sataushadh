@@ -6,6 +6,8 @@ import Carousel from "../components/Carousel";
 import CarouselWithLinks from "../components/CarouselWithLinks";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import ScrollToTop from "../components/ScrollToTop";
+import LoginModal from "../components/LoginModal";
+import checkLogin from "../utils/checkLogin";
 
 import ProductListSectionHome from "../components/ProductListSectionHome";
 
@@ -39,32 +41,28 @@ import { useNavigate, NavLink as RouterLink } from "react-router-dom";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import Testimonials from "../components/testimonials";
 
-
-
 const images = [
   {
     image1: require("../assets/HomaPage/amla.jpg"),
-    id:1770
+    id: 1770,
   },
   {
     image1: require("../assets/HomaPage/triphla powder.jpg"),
-    id:1783
+    id: 1783,
   },
   {
     image1: require("../assets/HomaPage/moringa.jpg"),
-    id:1785
+    id: 1785,
   },
   {
     image1: require("../assets/HomaPage/wheatgrass.jpg"),
-    id:1773
+    id: 1773,
   },
   {
     image1: require("../assets/HomaPage/spirulina.jpg"),
-    id:1786
+    id: 1786,
   },
 ];
-
-
 
 const Licences = [
   // {
@@ -78,9 +76,9 @@ const Licences = [
   //   size:180
   // },
   {
-    src:require("../assets/HomaPage/MSME.png"),
+    src: require("../assets/HomaPage/MSME.png"),
     alt: "MSME",
-    size:180
+    size: 180,
   },
   // {
   //   src:require("../assets/HomaPage/spices_board (1).png"),
@@ -136,43 +134,70 @@ export default function Home() {
   const [isFullScreen] = useMediaQuery("(min-width: 768px)");
   const width = useBreakpointValue({ base: "100%", lg: "100%" });
   const height = useBreakpointValue({ base: "300", lg: "400" });
-  const [banners, setBanners] = useState(banner);
+  const [banners, setBanners] = useState([]);
   const [newArrival, setNewArrival] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isMobile] = useMediaQuery("(max-width: 480px)");
-  const [homeData, setHome] = useState({});
+  const [aboutSection, setAboutSection] = useState([]);
+  const [certificateSection, setCertifcateSection] = useState([]);
+  const [otherImagesSection, setOtherImagesSection] = useState([]);
+  const [masalaSection, setMasalaSection] = useState([]);
+  const [licencesSection, setLicencesSection] = useState([]);
+  const [nonGMOSection, setNonGMOSection] = useState([]);
   const [MustTry, setMustTry] = useState([]);
   const [BestSeller, setBestSeller] = useState([]);
   const [sections, setSections] = useState([]);
-  const [awardsSection, setAwardSection] = useState();
-  const [servicesSection, setServicesSection] = useState();
-  const [availableSection, setAvailableSection] = useState();
+  const [awardsSection, setAwardSection] = useState([]);
+  const [servicesSection, setServicesSection] = useState([]);
+  const [availableSection, setAvailableSection] = useState([]);
+  const [statisticsSection, setStatisticsSection] = useState([]);
   // let [isFull] = useMediaQuery("(max-width:1920px)");
   const [blogs, setBlogs] = useState([]);
+  const loginInfo = checkLogin();
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const checkOrSetUDIDInfo = CheckOrSetUDID();
+  const [showPopup, setShowPopup] = useState(
+    sessionStorage.getItem("hasShownPopup")
+  );
   const isMobiles = width <= 768;
   const navigate = useNavigate();
   useEffect(() => {
     const init = async () => {
       await CheckOrSetUDID();
-       };
-  
+    };
+
     init();
-   // getHomePageData();
+    // getHomePageData();
+    getBanners();
     getBlogs();
     getArrival();
     getMustTry();
     getBestSeller();
     getLowerSection();
+    getUpperSectionUpper();
+    getUpperSectionLower();
+    getStatisticsSection();
+
+    if (showPopup === null && !loginInfo.isLoggedIn) {
+      setIsLoginModalOpen(true);
+    }
   }, []);
 
-  // async function getHomePageData() {
-  //   const response = await client.get("/home");
-  //   if (response.data.status === true) {
-  //     //setBanners(response.data.banners);
-  //     setHome(response.data);
-  //   }
-  //   setLoading(false);
-  // }
+  async function getBanners() {
+    setLoading(true);
+    try {
+      const response = await client.get("/ecommerce/banners/?sequence=Upper");
+
+      if (response.data.status === true) {
+        setBanners(response?.data?.banner);
+      }
+
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.error("Error fetching data:", error);
+    }
+  }
   async function getBlogs() {
     const params = {};
     const response = await client.get("/home/blogs/", {
@@ -183,53 +208,94 @@ export default function Home() {
     }
     setLoading(false);
   }
-  async function getArrival () {
-    const response = await client.get("newarrival/list")
-      if(response) {
-        setNewArrival(response.data.data)
-      }
-      setLoading(false);
+  async function getArrival() {
+    const response = await client.get("newarrival/list");
+    if (response) {
+      setNewArrival(response.data.data);
     }
-  
-    async function getMustTry () {
-      const response = await client.get("musttry/list")
-        if(response) {
-          setMustTry(response.data.data)
-        }
-        setLoading(false);
-      }
-      async function getBestSeller () {
-        const response = await client.get("bestofalltime/list")
-          if(response) {
-            setBestSeller(response.data.data)
-          }
-          setLoading(false);
-        }
+    setLoading(false);
+  }
 
-        async function getLowerSection() {
-          const params = {};
-          const response = await client.get("/lower-section/", {
-            params: params,
-          });
-          if (response.data.status === true) {
-            setSections(response.data.data);
-           
-            const ourServicesSection = response.data.data?.filter(
-              (section) => section.id === 2
-            );
-            const availableAtSection = response.data.data?.filter(
-              (section) => section.id === 3
-            );
-            const ourAwardsSection = response.data.data?.filter(
-              (section) => section.id === 1
-            );
-           
-            setAwardSection(ourAwardsSection);
-            setServicesSection(ourServicesSection);
-            setAvailableSection(availableAtSection);
-           
-          }
-        }
+  async function getMustTry() {
+    const response = await client.get("musttry/list");
+    if (response) {
+      setMustTry(response.data.data);
+    }
+    setLoading(false);
+  }
+  async function getBestSeller() {
+    const response = await client.get("bestofalltime/list");
+    if (response) {
+      setBestSeller(response.data.data);
+    }
+    setLoading(false);
+  }
+
+  async function getLowerSection() {
+    const params = {};
+    const response = await client.get("/lower-section/", {
+      params: params,
+    });
+    if (response.data.status === true) {
+      setSections(response.data.data);
+
+      const ourServicesSection = response.data.data?.filter(
+        (section) => section.id === 2
+      );
+      const availableAtSection = response.data.data?.filter(
+        (section) => section.id === 3
+      );
+      const ourAwardsSection = response.data.data?.filter(
+        (section) => section.id === 1
+      );
+
+      setAwardSection(ourAwardsSection);
+      setServicesSection(ourServicesSection);
+      setAvailableSection(availableAtSection);
+    }
+  }
+
+  async function getStatisticsSection() {
+    const params = {};
+    const response = await client.get("/statistics-section/", {
+      params: params,
+    });
+    if (response.data.status === true) {
+      setStatisticsSection(response?.data?.data);
+    }
+  }
+  const getUpperSectionUpper = async () => {
+    const response = await client.get("/sataushadh-section/?type=upper");
+
+    if (response.data.status === true) {
+      const about = response.data.data?.filter((section) => section.id === 1);
+      const certificate = response.data.data?.filter(
+        (section) => section.id === 2
+      );
+      const otherImages = response.data.data?.filter(
+        (section) => section.id === 3
+      );
+      const masala = response.data.data?.filter((section) => section.id === 4);
+
+      setAboutSection(about);
+      setCertifcateSection(certificate);
+      setOtherImagesSection(otherImages);
+      setMasalaSection(masala);
+    }
+  };
+  const getUpperSectionLower = async () => {
+    const response = await client.get("/sataushadh-section/?type=lower");
+
+    if (response.data.status === true) {
+      const licences = response.data.data?.filter(
+        (section) => section.id === 5
+      );
+      const nonGMO = response.data.data?.filter((section) => section.id === 6);
+
+      setLicencesSection(licences);
+      setNonGMOSection(nonGMO);
+    }
+  };
   return (
     <>
       {/* {loading === true ? (
@@ -243,81 +309,103 @@ export default function Home() {
         {loading === true ? (
           <Skeleton h={489}></Skeleton>
         ) : (
-          <Carousel banners={banners} />
+          <Carousel banners={banners?.length > 0 && banners} />
         )}
       </Container>
 
-      <Container maxW={"container.xl"} mb={8}  px={0}>
-        <Text
-          fontSize={{ base: "xl", sm: "2xl", xl: "2xl" }}
-          fontWeight={500}
-          bgColor={"bg.500"}
-          color={"text.500"}
-          textAlign={{ base: "center", md: "start" }}
-          px={{ base: 2, md: 8 }}
-          py={4}
-          mb={4}
-        >
-          SAT AUSHADH
-        </Text>
-        <Text
-          color={"text.300"}
-          align={{ base: "justify", md: "center" }}
-          px={{ base: 15, lg: 20 }}
-          fontSize={{ base: "sm", lg: "lg" }}
-        >
-          <b>SAT Aushadh</b> is inspired by Bansi Gir Gaushala, and its mission
-          to revive Bharat's ancient 'Gau Sanskriti', with its boundless gifts
-          that bring joy and healing to ailing humanity. 'Sat' stands for Truth
-          or pure essence, and 'Veda' for Knowledge. Inspired by ancient
-          Ayurvedic wisdom, SatAushadh aims to bring you herbs of the highest
-          standards of purity and authenticity.
-          <br />
-          <br />
-          <b>SAT Aushadh</b> is supporting, "Siddha Kisan Se" which is on a
-          mission to procure directly from ethical and trusted farmers of Bharat
-          and further supply such naturally grown food and herbs to every home.
-          <br />
-          <br />
-        </Text>
-        <Button
-          fontWeight={700}
-          color={"brand.500"}
-          as={RouterLink}
-          to={"/about-us"}
-          variant={"outline"}
-          borderRadius={"10px"}
-          borderColor={"brand.500"}
-          _hover={{ bgColor: "brand.500", color: "white" }}
-          mx={{lg:"45%",md:"42%",base:"33%"}}
-        >
-          Read more
-        </Button>
-      </Container>
+      {aboutSection?.length > 0 &&
+        aboutSection[0]?.is_visible_on_website === true && (
+          <Container maxW={"container.xl"} mb={8} px={0}>
+            <Text
+              fontSize={{ base: "xl", sm: "2xl", xl: "2xl" }}
+              fontWeight={500}
+              bgColor={"bg.500"}
+              color={"text.500"}
+              textAlign={{ base: "center", md: "start" }}
+              px={{ base: 2, md: 8 }}
+              py={4}
+              mb={4}
+            >
+              {aboutSection[0]?.label}
+            </Text>
+            <Text
+              color={"text.300"}
+              align={{ base: "justify", md: "center" }}
+              px={{ base: 15, lg: 20 }}
+              fontSize={{ base: "sm", lg: "lg" }}
+              whiteSpace={"pre-line"}
+            >
+              {aboutSection[0]?.description}
+              <br />
+              <br />
+            </Text>
+            <Button
+              fontWeight={700}
+              color={"brand.500"}
+              as={RouterLink}
+              to={"/about-us"}
+              variant={"outline"}
+              borderRadius={"10px"}
+              borderColor={"brand.500"}
+              _hover={{ bgColor: "brand.500", color: "white" }}
+              mx={{ lg: "45%", md: "42%", base: "33%" }}
+            >
+              Read more
+            </Button>
+          </Container>
+        )}
 
-      <Container mb={5} px={0} maxW={"container.xl"} centerContent>
-        <LazyLoadImage
-          src={require("../assets/HomaPage/Sat_Ausadh.jpg")}
-          alt=""
-          style={{
-            opacity: 1,
-            transition: "opacity 0.7s", // Note the corrected syntax here
-          }}
-        />
-      </Container>
-      <Container mb={5} px={{xl:"10%"}} maxW={"container.xl"} centerContent>
-        <Image mb={12} src={require("../assets/HomaPage/sat_aushadh.jpg")} cursor={"pointer"} onClick={()=>navigate("/products/1783")} />
-        {images.map((data) => (
-          <>
-          <Image src={require("../assets/HomaPage/page breker.png")} />
-          <Image mt={8} src={data.image1} cursor={"pointer"} onClick={()=>navigate(`/products/${data.id}`)} />
-          </>
-        ))}
-         <Image my={9} src={require("../assets/HomaPage/page breker.png")} />
-      </Container>
-      <Container mb={5} px={0} maxW={"container.xl"} centerContent>
-        <Image src={require("../assets/HomaPage/middle banner home page.jpg")} />
-      </Container>
+      {certificateSection?.length > 0 &&
+        certificateSection[0]?.is_visible_on_website === true && (
+          <Container mb={5} px={0} maxW={"container.xl"} centerContent>
+            <LazyLoadImage
+              src={certificateSection[0]?.image}
+              alt=""
+              style={{
+                opacity: 1,
+                transition: "opacity 0.7s", // Note the corrected syntax here
+                width: "100%",
+              }}
+            />
+          </Container>
+        )}
+
+      {otherImagesSection?.length > 0 &&
+        otherImagesSection[0]?.is_visible_on_website === true && (
+          <Container
+            mb={5}
+            px={{ xl: "10%" }}
+            maxW={"container.xl"}
+            centerContent
+          >
+            {otherImagesSection[0]?.images?.length > 0 &&
+              otherImagesSection[0]?.images?.map((data) => (
+                <>
+                  <Image
+                    mt={8}
+                    src={data.image}
+                    cursor={"pointer"}
+                    onClick={() => {
+                      if (data?.product !== null) {
+                        navigate(`/products/${data.product}`);
+                      }
+                    }}
+                  />
+                  <Image
+                    my={9}
+                    src={require("../assets/HomaPage/page breker.png")}
+                  />
+                </>
+              ))}
+          </Container>
+        )}
+
+      {masalaSection?.length > 0 &&
+        masalaSection[0]?.is_visible_on_website === true && (
+          <Container mb={5} px={0} maxW={"container.xl"} centerContent>
+            <Image width={"100%"} src={masalaSection[0]?.image} />
+          </Container>
+        )}
 
       <ProductListSectionHome
         title="Try Our New Products"
@@ -406,64 +494,53 @@ export default function Home() {
           ))}
         </Grid>
       </Container>
-      <Container backgroundColor={"bg.500"} maxW={"container.xl"} px={0} py={2}>
-        <SimpleGrid
-          columns={[2, 3, null, 4]}
-          px={6}
-          maxW={"container.xl"}
-          my={6}
-          backgroundColor={"bg.500"}
-          align="center"
-          spacingX={{ base: "10vw", md: "30px" }}
-          spacingY="40px"
-        >
-          <Stat>
-            <StatNumber color="text.500" fontSize={{ base: "3xl", md: "3xl" }}>
-            19+
-            </StatNumber>
-            <StatHelpText color="text.500">Natural Products</StatHelpText>
-          </Stat>
-
-          <Stat>
-            <StatNumber color="text.500" fontSize={{ base: "3xl", md: "3xl" }}>
-            11534+
-            </StatNumber>
-            <StatHelpText color="text.500">Satisfied Clients</StatHelpText>
-          </Stat>
-
-          <Stat>
-            <StatNumber color="text.500" fontSize={{ base: "3xl", md: "3xl" }}>
-            1485+
-            </StatNumber>
-            <StatHelpText color="text.500">Cities & Towns</StatHelpText>
-          </Stat>
-          <Stat>
-            <StatNumber color="text.500" fontSize={{ base: "3xl", md: "3xl" }}>
-              7+
-            </StatNumber>
-            <StatHelpText color="text.500">Countries</StatHelpText>
-          </Stat>
-
-         
-         
-         
-        </SimpleGrid>
-      </Container>
+      {statisticsSection?.length > 0 &&
+        statisticsSection[0]?.is_visible_on_website === true && (
+          <Container
+            backgroundColor={"bg.500"}
+            maxW={"container.xl"}
+            px={0}
+            py={2}
+          >
+            <SimpleGrid
+              columns={[2, 3, null, 4]}
+              px={6}
+              maxW={"container.xl"}
+              my={6}
+              backgroundColor={"bg.500"}
+              align="center"
+              spacingX={{ base: "10vw", md: "30px" }}
+              spacingY="40px"
+            >
+              {statisticsSection?.length > 0 &&
+                statisticsSection?.map((data) => (
+                  <Stat>
+                    <StatNumber
+                      color="text.500"
+                      fontSize={{ base: "3xl", md: "3xl" }}
+                    >
+                      {data?.value}
+                    </StatNumber>
+                    <StatHelpText color="gray.600">{data?.name}</StatHelpText>
+                  </Stat>
+                ))}
+            </SimpleGrid>
+          </Container>
+        )}
       {awardsSection?.length > 0 &&
         awardsSection[0]?.is_visible_on_website === true && (
           <Container maxW={{ base: "100vw", md: "container.xl" }}>
-           
-              <Heading
-                color="brand.500"
-                fontSize={{ md: 33, base: 20 }}
-                mx="auto"
-                align={"center"}
-                mt={3}
-                pb={"10px"}
-              >
-                {awardsSection?.length > 0 && awardsSection[0]?.label}
-              </Heading>
-           
+            <Heading
+              color="brand.500"
+              fontSize={{ md: 33, base: 20 }}
+              mx="auto"
+              align={"center"}
+              mt={3}
+              pb={"10px"}
+            >
+              {awardsSection?.length > 0 && awardsSection[0]?.label}
+            </Heading>
+
             <Text my={5} textAlign={"center"} color="text.300">
               We are committed to quality and each of our facilities is
               independently certified by an industry-accredited agency.
@@ -501,56 +578,75 @@ export default function Home() {
             </Flex>
           </Container>
         )}
-        <Box
-          w="100%"
-          backgroundSize="100%"
-          backgroundPosition="50% 100%"
-          backgroundRepeat={"no-repeat"}
-        >
-          <Heading
-            color="brand.500"
-            fontSize={{md:33,base:22}}
-            mx="auto"
-            align={"center"}
-            my={5}
-            pb={"10px"}
-          >
-            LICENSES & AFFILIATIONS
-          </Heading>
-        </Box>
-        <Grid
-          templateColumns={{
-            base: "repeat(1, 1fr)",
-            md: "repeat(1, 1fr)",
-            xl: "repeat(1, 1fr)",
-          }}
-          gap={6}
-          //my={10}
-          px={{xl:"12%",md:10}}
-          alignItems={"center"}
-        >
-          {Licences.map((data) => (
-            <GridItem>
-              <Image src={data.src} mx={"auto"} boxSize={{base:130,md:data.size}}    />
-            </GridItem>
-          ))}
-        </Grid>
-         <Image mx={"auto"} my={20} src={require("../assets/HomaPage/sataushadh(1).jpg")} w={"65%"} />
-         {servicesSection?.length > 0 &&
-        servicesSection[0]?.is_visible_on_website === true && (
+      {licencesSection?.length > 0 &&
+        licencesSection[0]?.is_visible_on_website === true && (
           <Container maxW={{ base: "100vw", md: "container.xl" }}>
-           
+            <Box
+              w="100%"
+              backgroundSize="100%"
+              backgroundPosition="50% 100%"
+              backgroundRepeat={"no-repeat"}
+            >
               <Heading
                 color="brand.500"
-                fontSize={{ md: 33, base: 20 }}
+                fontSize={{ md: 33, base: 22 }}
                 mx="auto"
                 align={"center"}
-                my={"5"}
+                my={5}
                 pb={"10px"}
               >
-                {servicesSection?.length > 0 && servicesSection[0].label}
+                {licencesSection[0]?.label}
               </Heading>
-           
+            </Box>
+            <Grid
+              templateColumns={{
+                base: "repeat(1, 1fr)",
+                md: "repeat(1, 1fr)",
+                xl: "repeat(1, 1fr)",
+              }}
+              gap={6}
+              //my={10}
+              px={{ xl: "12%", md: 10 }}
+              alignItems={"center"}
+            >
+              {licencesSection[0]?.images?.length > 0 &&
+                licencesSection[0]?.images?.map((data) => (
+                  <GridItem>
+                    <Image
+                      src={data.image}
+                      mx={"auto"}
+                      boxSize={{ base: 130, md: 140 }}
+                    />
+                  </GridItem>
+                ))}
+            </Grid>
+          </Container>
+        )}
+      {nonGMOSection?.length > 0 &&
+        nonGMOSection[0]?.is_visible_on_website === true && (
+          <Container maxW={{ base: "100vw", md: "6xl" }}>
+            <Image
+              mx={"auto"}
+              my={"5%"}
+              src={nonGMOSection[0]?.image}
+              
+            />
+          </Container>
+        )}
+      {servicesSection?.length > 0 &&
+        servicesSection[0]?.is_visible_on_website === true && (
+          <Container maxW={{ base: "100vw", md: "container.xl" }}>
+            <Heading
+              color="brand.500"
+              fontSize={{ md: 33, base: 20 }}
+              mx="auto"
+              align={"center"}
+              my={"5"}
+              pb={"10px"}
+            >
+              {servicesSection?.length > 0 && servicesSection[0].label}
+            </Heading>
+
             <Box display={"flex"} justifyContent={"center"}>
               <LazyLoadImage
                 src={
@@ -568,21 +664,20 @@ export default function Home() {
             </Box>
           </Container>
         )}
-        {availableSection?.length > 0 &&
+      {availableSection?.length > 0 &&
         availableSection[0]?.is_visible_on_website === true && (
           <Container maxW={"container.xl"} mb={5} px={0} centerContent>
-            
-              <Heading
-                color="brand.500"
-                fontSize={{ md: 33, base: 22 }}
-                mx="auto"
-                align={"center"}
-                my={"5"}
-                pb={"10px"}
-              >
-                {availableSection?.length > 0 && availableSection[0].label}
-              </Heading>
-            
+            <Heading
+              color="brand.500"
+              fontSize={{ md: 33, base: 22 }}
+              mx="auto"
+              align={"center"}
+              my={"5"}
+              pb={"10px"}
+            >
+              {availableSection?.length > 0 && availableSection[0].label}
+            </Heading>
+
             <Image
               src={
                 availableSection?.length > 0 &&
@@ -597,8 +692,13 @@ export default function Home() {
             />
           </Container>
         )}
-    
-      <ScrollToTop/>
+      {!checkLogin().isLoggedIn && (
+        <LoginModal
+          isOpen={isLoginModalOpen}
+          onClose={() => setIsLoginModalOpen(false)}
+        />
+      )}
+      <ScrollToTop />
       <Footer />
       {/* </>
       )} */}

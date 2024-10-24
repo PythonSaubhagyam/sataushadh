@@ -51,6 +51,7 @@ import BreadCrumbCom from "../components/BreadCrumbCom";
 import ProductImageSection from "../components/ProductImageSection";
 import StarRating from "../components/StarRatings";
 import ScrollToTop from "../components/ScrollToTop";
+import LoginModal from "../components/LoginModal";
 
 function ButtonIncrement(props) {
   return (
@@ -110,14 +111,14 @@ export default function ProductDetails() {
   // const maxWidth = useBreakpointValue({ base: "100%", lg: "container.xl" });
   // const boxWidth = useBreakpointValue({ base: "100%", lg: "75%" });
   const loginInfo = checkLogin();
-  
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const MINIMUM_RATING_THRESHOLD = 0.0;
   const incrementCounter = () => setCounter(counter + 1);
   let decrementCounter = () => setCounter(counter - 1);
   if (counter <= 1) {
     decrementCounter = () => setCounter(1);
   }
- 
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { productId } = useParams();
 
@@ -285,7 +286,7 @@ export default function ProductDetails() {
       // window.alert(
       //   "Sorry! You are not allowed to review this product since you haven't login"
       // );
-      navigate("/login");
+       setIsLoginModalOpen(true)
       //navigate("/login");
       toast({
         title: "Please login to write a review!",
@@ -736,38 +737,32 @@ export default function ProductDetails() {
             </Container>
           )}
 
-          
-            <ProductListSection
-              title="Related Products"
-              products={relatedProducts}
-              loading={loading}
-              justify="center"
-              fontSize={{ base: "sm", lg: "md" }}
-              type={"carousal"}
-            />
-          
+          <ProductListSection
+            title="Related Products"
+            products={relatedProducts}
+            loading={loading}
+            justify="center"
+            fontSize={{ base: "sm", lg: "md" }}
+            type={"carousal"}
+          />
 
-          
-            <ProductListSection
-              title="Other Products"
-              products={otherProducts}
-              justify="center"
-              loading={loading}
-              fontSize={{ base: "sm", lg: "md" }}
-              type={"carousal"}
-            />
-          
+          <ProductListSection
+            title="Other Products"
+            products={otherProducts}
+            justify="center"
+            loading={loading}
+            fontSize={{ base: "sm", lg: "md" }}
+            type={"carousal"}
+          />
 
-          
-            <ProductListSection
-              title="Recently Viewed Products"
-              products={recentlyViewedProducts}
-              justify="center"
-              loading={loading}
-              fontSize={{ base: "sm", lg: "md" }}
-              type={"carousal"}
-            />
-         
+          <ProductListSection
+            title="Recently Viewed Products"
+            products={recentlyViewedProducts}
+            justify="center"
+            loading={loading}
+            fontSize={{ base: "sm", lg: "md" }}
+            type={"carousal"}
+          />
 
           <Modal
             size={"xl"}
@@ -825,7 +820,12 @@ export default function ProductDetails() {
               </form>
             </ModalContent>
           </Modal>
-
+          {!checkLogin().isLoggedIn && (
+            <LoginModal
+              isOpen={isLoginModalOpen}
+              onClose={() => setIsLoginModalOpen(false)}
+            />
+          )}
           {/* </Flex> */}
           <ScrollToTop />
         </>

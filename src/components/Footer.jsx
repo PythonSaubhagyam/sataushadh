@@ -32,6 +32,7 @@ export default function Footer() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
   const [isMobiles, setIsMobiles] = useState(window.innerWidth <= 600);
   const loginInfo = checkLogin();
+  const [isLoggedIn, setIsLoggedIn] = useState(checkLogin().isLoggedIn);
   // const checkOrSetUDIDInfo = CheckOrSetUDID();
   // let headers = { visitor: checkOrSetUDIDInfo.visitor_id };
 
@@ -41,12 +42,23 @@ export default function Footer() {
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 600);
-      setIsMobiles(window.innerWidth <= 600);
     };
 
+    const updateLoginStatus = () => {
+      const loginInfo = checkLogin();
+      setIsLoggedIn(loginInfo.isLoggedIn);
+    };
+
+    // Add event listener to window resize
     window.addEventListener("resize", handleResize);
+
+    // Set interval to check login status every few seconds (optional if login can change dynamically)
+    const loginInterval = setInterval(updateLoginStatus, 1000);
+
+    // Cleanup event listener and interval on component unmount
     return () => {
       window.removeEventListener("resize", handleResize);
+      clearInterval(loginInterval);
     };
   }, []);
   const navigate = useNavigate();
@@ -66,7 +78,8 @@ export default function Footer() {
             fontSize={{ base: "sm", lg: "md" }}
             className="scrolling-text"
           >
-           For deliveries in the USA, UAE, UK, Singapore, Canada and Australia email us at {" "}
+            For deliveries in the USA, UAE, UK, Singapore, Canada and Australia
+            email us at{" "}
             <Link
               target="_blank"
               href="mailto:export@suryanorganic.com"
@@ -95,10 +108,7 @@ export default function Footer() {
 
             {/* <SimpleGrid columns={{ base: 1, md: 3 }}> */}
             <Stack color="text.300">
-              <Stack
-                ml={{ md: "50%" }}
-               
-              >
+              <Stack ml={{ md: "50%" }}>
                 <ListHeader style={{ color: "text.500" }}>
                   Quick Links
                 </ListHeader>
@@ -313,7 +323,7 @@ export default function Footer() {
               </Stack> */}
             {/* </Stack> */}
             <Stack color="text.300" mt={{ md: 3 }}>
-              <Stack >
+              <Stack>
                 <ListHeader gap={"3"}>Customer Support</ListHeader>
               </Stack>
               <Link
@@ -349,7 +359,7 @@ export default function Footer() {
                 care@suryanorganic.com
               </Link>
             </Stack>
-            <Stack ml={{lg:10}} mt={{ md: 3 }}>
+            <Stack ml={{ lg: 10 }} mt={{ md: 3 }}>
               <ListHeader align={"flex-start"}>Talk To Our Vaidya</ListHeader>
               <Link
                 textDecoration="none"
@@ -379,10 +389,10 @@ export default function Footer() {
 
             <Stack align={"flex-start"} gap={"3"} ml={{ lg: 10 }} color="brand.900"> */}
               <ListHeader align={"flex-start"} marginBottom={5}>
-              We accept payments via
+                We accept payments via
               </ListHeader>
               <Image
-                ml={{lg:"-12px",base:"-20px"}}
+                ml={{ lg: "-12px", base: "-20px" }}
                 src={
                   "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/footer/payment method.png hnghngh.png"
                 }
@@ -407,8 +417,8 @@ export default function Footer() {
           </Text>
         </Box>
       </Container>
-      {loginInfo.isLoggedIn && <CartPopUp />}
-<WhatsUp/>
+      {isLoggedIn && <CartPopUp />}
+      <WhatsUp />
     </>
   );
 }
