@@ -411,18 +411,21 @@ export default function Home() {
         title="Try Our New Products"
         loading={loading}
         products={newArrival}
+        type={isMobile && "carousal"}
       />
 
       <ProductListSectionHome
         title="MUST TRY : SAT AUSHADH Products"
         loading={loading}
         products={MustTry}
+        type={isMobile && "carousal"}
       />
 
       <ProductListSectionHome
         title="All Time Best Sellers"
         loading={loading}
         products={BestSeller}
+        type={isMobile && "carousal"}
       />
       <Container maxW={"container.xl"}>
         <Heading
