@@ -64,8 +64,18 @@ import { TfiYoutube } from "react-icons/tfi";
 import { FaApple, FaFacebookF, FaGooglePlay, FaWhatsapp } from "react-icons/fa";
 import { FiInstagram } from "react-icons/fi";
 import { debounce } from "lodash";
+import CartEmitter from "./EventEmitter";
+import LoginModal from "./LoginModal"
 
 const Links = [
+  {
+    name: "SOSE Elite",
+    location: "/subscription-plans",
+  },
+  {
+    name: "Gift Voucher",
+    location: "/gift-voucher",
+  },
   {
     name: "Consult Our Vaidya",
     location: "/consult-our-vaidya",
@@ -78,23 +88,22 @@ const Links = [
     name: "Inspire & Support",
     location: "/inspire-and-support",
   },
-  // {
-  //   name: "Organic Living",
-  //   location: "/organic-living",
-  // },
-  // {
-  //   name: "Exports",
-  //   location: "/exports",
-  // },
-  // {
-  //   name: "B2B",
-  //   location: "/bussiness",
-  // },
-  // {
-  //   name: "Franchise",
-  //   location: "/franchise",
-  // },
- 
+  //  {
+  //    name: "Organic Living",
+  //    location: "/organic-living",
+  //  },
+  //  {
+  //    name: "Exports",
+  //    location: "/exports",
+  //  },
+  //  {
+  //    name: "B2B",
+  //    location: "/bussiness",
+  //  },
+  //  {
+  //    name: "Franchise",
+  //    location: "/franchise",
+  //  },
   {
     name: "Store Locator",
     location: "/store-locator",
@@ -107,11 +116,12 @@ const Links = [
     name: "Contact Us",
     location: "/contact-us",
   },
+  //   // { name: "Natural Products", location: "/shop" },
 
-  // {
-  //   name: "Gifting",
-  //   location: "/shop?gift=true",
-  // },
+  //   // {
+  //   //   name: "Gifting",
+  //   //   location: "/shop?gift=true",
+  //   // },
 ];
 
 const mainLinks = [
@@ -199,6 +209,7 @@ export default function Navbar() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const menuRef = useRef(null);
   const [topCategory, setTopCategory] = useState([]);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const handleScroll = (direction) => {
     const menu = menuRef.current;
     const scrollAmount = 100; // Adjust this value based on how much you want to scroll
@@ -266,8 +277,8 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    CheckOrSetUDID();
-    getMegaCategories();
+    //CheckOrSetUDID();
+    //getMegaCategories();
   }, []);
 
   const getMegaCategories = async () => {
@@ -321,7 +332,11 @@ export default function Navbar() {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
-    CheckOrSetUDID();
+    const init = async () => {
+      await CheckOrSetUDID();
+       };
+  
+    init();  
     getCategories();
   }, []);
 
@@ -339,6 +354,7 @@ export default function Navbar() {
 
     if (response.data.status === true) {
       setCategories(response.data.categories);
+      setMegaCategories(response.data.categories);
       setTopCategory(mergeArraysById(mainLinks, response.data.categories));
     }
   };
@@ -415,6 +431,8 @@ export default function Navbar() {
   }, []);
   const Logout = () => {
     localStorage.clear();
+    CartEmitter.emit("updateCartCount", 0);
+    CartEmitter.emit("updateProductTotal", 0);
     toast({
       title: "Logged out successfully!",
       status: "success",
@@ -585,8 +603,7 @@ export default function Navbar() {
                     _hover={{ bg: "brand.500" }}
                   > */}
                   <MenuItem
-                    as={Link}
-                    href="/login"
+                     onClick={()=>setIsLoginModalOpen(true)}
                     cursor={"pointer"}
                     _hover={{ textDecoration: "none" }}
                   >
@@ -678,7 +695,11 @@ export default function Navbar() {
                                     setOpenAccrodion();
                                   } else {
                                     navigate(
-                                      `/shop?page=1&category=${section.id}&category_name=${encodeURIComponent(section?.name)}`
+                                      `/shop?page=1&category=${
+                                        section.id
+                                      }&category_name=${encodeURIComponent(
+                                        section?.name
+                                      )}`
                                     );
                                     setAccordion(!isOpen);
                                     onClose();
@@ -741,7 +762,11 @@ export default function Navbar() {
                                                     setOpen(Open);
                                                   } else {
                                                     navigate(
-                                                      `/shop?page=1&category=${subcategory.id}&category_name=${encodeURIComponent(subcategory?.name)}`
+                                                      `/shop?page=1&category=${
+                                                        subcategory.id
+                                                      }&category_name=${encodeURIComponent(
+                                                        subcategory?.name
+                                                      )}`
                                                     );
                                                     setAccordion(!isOpen);
                                                     onClose();
@@ -759,7 +784,11 @@ export default function Navbar() {
                                                 <AccordionIcon
                                                   onClick={() =>
                                                     navigate(
-                                                      `/shop?page=1&category=${subcategory.id}&category_name=${encodeURIComponent(subcategory?.name)}`
+                                                      `/shop?page=1&category=${
+                                                        subcategory.id
+                                                      }&category_name=${encodeURIComponent(
+                                                        subcategory?.name
+                                                      )}`
                                                     )
                                                   }
                                                   display={
@@ -792,7 +821,11 @@ export default function Navbar() {
                                                           key={i}
                                                           onClick={() => {
                                                             navigate(
-                                                              `/shop?page=1&category=${children.id}&category_name=${encodeURIComponent(children?.name)}`
+                                                              `/shop?page=1&category=${
+                                                                children.id
+                                                              }&category_name=${encodeURIComponent(
+                                                                children?.name
+                                                              )}`
                                                             );
                                                             onClose();
                                                           }}
@@ -1054,8 +1087,8 @@ export default function Navbar() {
                       color: "brand.900",
                     }}
                     fontWeight={500}
-                    fontSize={{ md: "16px" }}
-                    onClick={() => navigate("/login")}
+                    fontSize={{ md: "14px" }}
+                    onClick={() => setIsLoginModalOpen(true)}
                   >
                     Login
                   </Link>
@@ -1067,7 +1100,7 @@ export default function Navbar() {
                       color: "brand.900",
                     }}
                     fontWeight={500}
-                    fontSize={{ md: "16px" }}
+                    fontSize={{ md: "14px" }}
                   >
                     Sign up
                   </Link>
@@ -1076,13 +1109,13 @@ export default function Navbar() {
             </Flex>
           </GridItem>
           <GridItem
-            colSpan={7}
+            colSpan={9}
             display={"flex"}
             // style={{ borderBottom: "0.5px solid #b7b7b7" }}
           >
             <Flex
               as={"nav"}
-              gap={{ md: 6, lg: 4, xl: 5 }}
+              gap={{ md: 6, lg: 4, xl: 4 }}
               display={{ base: "flex", lg: "flex" }}
               fontSize={{ lg: 11, xl: 14, md: 9 }}
               alignItems={"center"}
@@ -1222,7 +1255,7 @@ export default function Navbar() {
             </Flex>
           </GridItem>
           <GridItem
-            colSpan={4}
+            colSpan={2}
             display={"flex"}
             justifyContent={"end"}
             alignItems={"center"}
@@ -1246,7 +1279,7 @@ export default function Navbar() {
             >
               <FiInstagram fontSize={20} />
                 </Link>*/}
-            {/* <Link
+            <Link
               _hover={{ color: "text.500" }}
               isExternal={true}
               as={ReactRouterLink}
@@ -1255,7 +1288,7 @@ export default function Navbar() {
               }
             >
               <FaWhatsapp fontSize={20} />
-            </Link> */}
+            </Link>
             <Link
               _hover={{ color: "text.500" }}
               isExternal={true}
@@ -1305,6 +1338,12 @@ export default function Navbar() {
           </GridItem>
         </Grid>
       </Container>
+      {!checkLogin().isLoggedIn && (
+        <LoginModal
+          isOpen={isLoginModalOpen}
+          onClose={() => setIsLoginModalOpen(false)}
+        />
+      )}
     </Box>
   );
 }

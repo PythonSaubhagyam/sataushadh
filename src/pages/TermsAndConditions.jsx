@@ -11,23 +11,26 @@ import {
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import BreadCrumbCom from "../components/BreadCrumbCom";
-// import { useLocation } from "react-router-dom";
+ import { useLocation } from "react-router-dom";
+import ScrollToTop from "../components/ScrollToTop";
 
 export default function TermsAndConditions() {
-  // let { search } = useLocation();
-  // const searchParams = new URLSearchParams(search);
-  // const IsMobileView = searchParams.get("mobile") ?? "false";
+  let { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+  const IsMobileView = searchParams.get("mobile") ?? "false";
 
   return (
     <>
-      <Navbar />
+        {IsMobileView !== "true" && <Navbar />}
+
+
       <Container maxW="container.xl">
         <BreadCrumbCom
           second={"Terms And Conditions"}
           secondUrl={"/terms-and-conditions"}
         />
       </Container>
-      <Container maxW={"container.xl"} py={8} px={0} position="relative">
+      <Container maxW={"container.xl"} py={1} px={0} position="relative">
         <Image src="https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/organic-living/terms.jpg" />
 
         <Text
@@ -46,7 +49,7 @@ export default function TermsAndConditions() {
           Terms & Condition
         </Text>
       </Container>
-      <Container maxW="container.lg" pt={10}>
+      <Container maxW="container.lg" pt={5}>
         <Heading size="md" fontWeight={500} color={"brand.900"}>
           Shipping Policy
         </Heading>
@@ -112,7 +115,7 @@ export default function TermsAndConditions() {
             the item(s) in your cart and the delivery address.
           </ListItem>
         </UnorderedList>
-        <Heading size="md" fontWeight={500} color={"brand.900"} pt={12}>
+        <Heading size="md" fontWeight={500} color={"brand.900"} pt={8}>
           Tracking your order
         </Heading>
         <UnorderedList>
@@ -124,7 +127,10 @@ export default function TermsAndConditions() {
           </ListItem>
         </UnorderedList>
       </Container>
-      <Footer />
+      <ScrollToTop/>
+      {IsMobileView !== "true" && <Footer />}
+
+
     </>
   );
 }

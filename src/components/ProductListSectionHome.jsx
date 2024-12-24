@@ -137,10 +137,11 @@ const ProductListSectionHome = ({ title, products, loading, type }) => {
             justify="center"
             align="center"
             direction={{ base: "column", md: "row" }}
-            gap={{xl:2}}
+            //gap={{xl:2}}
             // wrap={"wrap"}
             wrap={{ md: "wrap", lg: "nowrap" }}
-            px={5}
+            px={4}
+            gap={5}
           >
             {loading === true ? (
               <>

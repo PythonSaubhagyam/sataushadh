@@ -3,6 +3,9 @@ import Footer from "../components/Footer";
 import ReadMorePost from "../components/ReadMorePost";
 import { Box, Container, Text,Image } from "@chakra-ui/react";
 import BreadCrumbCom from "../components/BreadCrumbCom";
+import ScrollToTop from "../components/ScrollToTop";
+import { useLocation } from "react-router-dom";
+
 
 const Posts = [
   {
@@ -61,7 +64,7 @@ const Posts = [
         of trusted and ethically growing natural farmers
       </Text>
     ),
-    href: "https://www.sidhakisanse.com/",
+    href: "https://www.sidhakisanse.in/",
   },
   {
     image: require("../assets/inspire-support/b3.jpg"),
@@ -80,9 +83,16 @@ const Posts = [
 ];
 
 export default function InspireSupport() {
+  
+  let { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+ const IsMobileView = searchParams.get("mobile") ?? "false";
+
   return (
     <>
-      <Navbar />
+      {IsMobileView !== "true" && <Navbar />}
+
+
 
       <Container maxW="container.xl">
         <BreadCrumbCom
@@ -98,7 +108,9 @@ export default function InspireSupport() {
           <ReadMorePost postAlign="horizontal" postDetails={postDetails} />
         ))}
       </Container>
-      <Footer />
+      <ScrollToTop/>
+      {IsMobileView !== "true" && <Footer />}
+
     </>
   );
 }

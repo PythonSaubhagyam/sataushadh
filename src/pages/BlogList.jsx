@@ -32,6 +32,7 @@ import {
   PaginationPageGroup,
 } from "@ajna/pagination";
 import BreadCrumbCom from "../components/BreadCrumbCom";
+import ScrollToTop from "../components/ScrollToTop";
 
 export default function BlogList() {
   const [blogs, setBlogs] = useState([]);
@@ -116,25 +117,9 @@ export default function BlogList() {
 
       <Container maxW="container.xl">
         <BreadCrumbCom second={"Blog"} secondUrl={"/blogs"} />
-        {/* <Flex
-          direction="column"
-          w="100%"
-          h="200px"
-          justify={"center"}
-          mt={2}
-          ps={{ base: 4, lg: 20 }}
-          color="white"
-          bgGradient={["linear(to-b, brand.900, brand.100)"]}
-        >
-          <Heading color={"white"} fontWeight={"light"}>
-            News & Articles
-          </Heading>
-          <Text color={"white"} fontWeight={"light"}>
-            Get the latest updates & insights from SOSE
-          </Text>
-        </Flex> */}
+       
       </Container>
-      <Container maxW={"container.xl"} py={8} px={0} position="relative">
+      <Container maxW={"container.xl"} py={1} px={0} position="relative">
         <Image src="https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/news and event.jpg" />
 
         <Text
@@ -159,7 +144,7 @@ export default function BlogList() {
         gap={{ base: 6, lg: 0 }}
         // maxW={{ base: "100%", lg: "90vw" }}
         minH="container.sm"
-        justify="space-between"
+        justifyContent="center"
         my={8}
         px={6}
         maxW="container.xl"
@@ -171,7 +156,7 @@ export default function BlogList() {
                 <Box key={blog.id}>
                   <LinkBox my={4}>
                     <LinkOverlay href={`/blogs/${blog.id}/`}>
-                      <Heading size="lg" fontWeight={"600"} color="#436131">
+                      <Heading size="lg" fontWeight={"600"} color="brand.500">
                         {blog.title}
                       </Heading>
                     </LinkOverlay>
@@ -371,6 +356,8 @@ export default function BlogList() {
           </Box>
         </Flex>
       </Container>
+
+      <ScrollToTop/>
       <Footer />
     </>
   );

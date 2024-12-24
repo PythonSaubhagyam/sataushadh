@@ -21,9 +21,16 @@ import { HiInformationCircle } from "react-icons/hi";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import { useState } from "react";
 import CarouselOurVaidhya from "../components/CarouselOurVaidhya";
+import ScrollToTop from "../components/ScrollToTop";
+import LoginModal from "../components/LoginModal";
+import { useLocation } from "react-router-dom";
 
 
 export default function ConsultOurVaidya() {
+  let { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+ const IsMobileView = searchParams.get("mobile") ?? "false";
+ const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -41,7 +48,7 @@ export default function ConsultOurVaidya() {
         duration: 3000,
         isClosable: true,
       });
-      navigate("/login");
+     setIsLoginModalOpen(true)
     }
   }
 
@@ -111,8 +118,8 @@ export default function ConsultOurVaidya() {
   const [banners, setBanners] = useState(SecondCarousel);
   return (
     <>
-      <Navbar />
-      <Container maxW="container.xl">
+       {IsMobileView !== "true" && <Navbar />}
+       <Container maxW="container.xl">
         <BreadCrumbCom
           second={"Consult Our Vaidya"}
           secondUrl={"/consult-our-vaidya"}
@@ -467,7 +474,16 @@ export default function ConsultOurVaidya() {
           }}
         />
       </Container>
-      <Footer />
+      {!checkLogin().isLoggedIn && (
+        <LoginModal
+          isOpen={isLoginModalOpen}
+          onClose={() => setIsLoginModalOpen(false)}
+        />
+      )}
+      <ScrollToTop/>
+      {IsMobileView !== "true" && <Footer />}
+
+
     </>
   );
 }

@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import { Box, Container, Flex, Image, Heading,Text,Button } from "@chakra-ui/react";
 import { useNavigate, NavLink as RouterLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import ScrollToTop from "../components/ScrollToTop";
 const Aboutus = () => {
   let { search } = useLocation();
   const searchParams = new URLSearchParams(search);
@@ -117,6 +118,7 @@ const Aboutus = () => {
           />
         </Container>
       </Container>
+      <ScrollToTop/>
       {IsMobileView !== "true" && <Footer />}
     </>
   );

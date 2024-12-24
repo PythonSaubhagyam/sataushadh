@@ -18,12 +18,13 @@ export default function ProductCard({ product }) {
       borderColor="brand.100"
       borderRadius={"lg"}
       onClick={() => {
-        navigate(`/products/${product.id}`),
-          window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: "smooth",
-          });
+        window.location.href = `/products/${product.id}`;
+        // navigate(),
+        //   window.scrollTo({
+        //     top: 0,
+        //     left: 0,
+        //     behavior: "smooth",
+        //   });
       }}
       cursor={"pointer"}
     >
@@ -32,7 +33,7 @@ export default function ProductCard({ product }) {
           src={product.home_image ? product.home_image : product.image1}
           alt={product.name}
           borderRadius="lg"
-          boxSize="150px"
+          boxSize="200px"
           objectFit={"contain"}
           mx="auto"
         />

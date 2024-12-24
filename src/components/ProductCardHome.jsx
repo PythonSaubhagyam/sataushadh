@@ -14,7 +14,7 @@ const ProductCardHome = ({ product }) => {
     const navigate = useNavigate();
     return (
       <Card
-        w={{ base: "80vw", sm: "3xs",md:"200px",lg:"200px", xl: "2xs" }}
+        //w={{ base: "80vw", sm: "3xs",md:"200px",lg:"200px", xl: "2xs" }}
         border="1px"
         borderColor="brand.100"
         borderRadius={"lg"}
@@ -33,7 +33,7 @@ const ProductCardHome = ({ product }) => {
             src={product.product?.home_image ? product.product?.home_image : product.product?.image1}
             alt={product.product?.name}
             borderRadius="lg"
-            boxSize="150px"
+            boxSize="200px"
             objectFit={"contain"}
             mx="auto"
           />

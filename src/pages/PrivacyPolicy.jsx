@@ -3,11 +3,20 @@ import Footer from "../components/Footer";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import Navbar from "../components/Navbar";
 import { Box, Container, VStack, Image, Text, Heading } from "@chakra-ui/react";
+import ScrollToTop from "../components/ScrollToTop";
+import { useLocation } from "react-router-dom";
+
 
 const PrivacyPolicy = () => {
+  let { search } = useLocation();
+    const searchParams = new URLSearchParams(search);
+   const IsMobileView = searchParams.get("mobile") ?? "false";
+
   return (
     <>
-      <Navbar />
+     
+    {IsMobileView !== "true" && <Navbar />}
+
       <Container maxW={"container.xl"} alignContent={"flex-start"}>
         <BreadCrumbCom
           second={"Privacy Policy"}
@@ -323,7 +332,10 @@ const PrivacyPolicy = () => {
           }}
         />
       </Container>
-      <Footer />
+      <ScrollToTop/>
+      {IsMobileView !== "true" && <Footer />}
+
+
     </>
   );
 };

@@ -21,8 +21,13 @@ import client from "../setup/axiosClient";
 import { AsyncSelect } from "chakra-react-select";
 import checkLogin from "../utils/checkLogin";
 import BreadCrumbCom from "../components/BreadCrumbCom";
+import { useLocation } from "react-router-dom";
 
 export default function ContactUs() {
+  let { search } = useLocation();
+    const searchParams = new URLSearchParams(search);
+   const IsMobileView = searchParams.get("mobile") ?? "false";
+
   const initialFormData = Object.freeze({
     company: "",
     name: "",
@@ -122,11 +127,12 @@ export default function ContactUs() {
   };
   return (
     <>
-      <Navbar />
+       {IsMobileView !== "true" && <Navbar />}
+
       <Container maxW="container.xl">
         <BreadCrumbCom second={"Contact Us"} secondUrl={"/contact-us"} />
       </Container>
-      <Container maxW={"container.xl"} py={8} px={0} position="relative">
+      <Container maxW={"container.xl"} py={1} px={0} position="relative">
         <Image src="https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/organic-living/contact.jpg" />
 
         <Text
@@ -156,7 +162,7 @@ export default function ContactUs() {
         >
           Contact Us
         </Text> */}
-        <Text pb={2}>
+        <Text pb={2} pt={2}>
           Contact us about anything related to our company or services.
         </Text>
         <Text pb={8}>
@@ -418,7 +424,8 @@ export default function ContactUs() {
         </form>
 
       </Container>
-      <Footer />
+      {IsMobileView !== "true" && <Footer />}
+
     </>
   );
 }
