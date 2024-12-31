@@ -65,7 +65,7 @@ import { FaApple, FaFacebookF, FaGooglePlay, FaWhatsapp } from "react-icons/fa";
 import { FiInstagram } from "react-icons/fi";
 import { debounce } from "lodash";
 import CartEmitter from "./EventEmitter";
-import LoginModal from "./LoginModal"
+import LoginModal from "./LoginModal";
 
 const Links = [
   {
@@ -334,9 +334,9 @@ export default function Navbar() {
   useEffect(() => {
     const init = async () => {
       await CheckOrSetUDID();
-       };
-  
-    init();  
+    };
+
+    init();
     getCategories();
   }, []);
 
@@ -603,7 +603,7 @@ export default function Navbar() {
                     _hover={{ bg: "brand.500" }}
                   > */}
                   <MenuItem
-                     onClick={()=>setIsLoginModalOpen(true)}
+                    onClick={() => setIsLoginModalOpen(true)}
                     cursor={"pointer"}
                     _hover={{ textDecoration: "none" }}
                   >
@@ -1154,13 +1154,13 @@ export default function Navbar() {
                     {megaCategories?.map((section, index) => (
                       <>
                         <MenuItem
-                          icon={
-                            <img
-                              src={"./himalayan_logo.jpg"}
-                              width={25}
-                              alt=""
-                            />
-                          }
+                          // icon={
+                          //   <img
+                          //     src={"./himalayan_logo.jpg"}
+                          //     width={25}
+                          //     alt=""
+                          //   />
+                          // }
                           fontSize={"13"}
                           key={index}
                           onMouseEnter={() => handleShow1(section.children)}
@@ -1325,16 +1325,14 @@ export default function Navbar() {
             >
               <FaGooglePlay fontSize={20} />
             </Link>
-             <Link
+            <Link
               _hover={{ color: "text.500" }}
               isExternal={true}
               as={ReactRouterLink}
-              to={
-                "https://apps.apple.com/in/app/sat-aushadh/id6478005800"
-              }
+              to={"https://apps.apple.com/in/app/sat-aushadh/id6478005800"}
             >
               <FaApple fontSize={22} />
-            </Link> 
+            </Link>
           </GridItem>
         </Grid>
       </Container>
