@@ -151,6 +151,7 @@ export default function Home() {
   const [servicesSection, setServicesSection] = useState([]);
   const [availableSection, setAvailableSection] = useState([]);
   const [statisticsSection, setStatisticsSection] = useState([]);
+  const [newArrivalSection, setNewArrivalSection] = useState([])
   // let [isFull] = useMediaQuery("(max-width:1920px)");
   const [blogs, setBlogs] = useState([]);
   const loginInfo = checkLogin();
@@ -276,11 +277,16 @@ export default function Home() {
         (section) => section.id === 3
       );
       const masala = response.data.data?.filter((section) => section.id === 4);
-
+      
+      const newArrival = response.data.data?.filter(
+        (section) => section.id === 7
+      );
+      // console.log(newArrival)
       setAboutSection(about);
       setCertifcateSection(certificate);
       setOtherImagesSection(otherImages);
       setMasalaSection(masala);
+      setNewArrivalSection(newArrival);
     }
   };
   const getUpperSectionLower = async () => {
@@ -352,6 +358,52 @@ export default function Home() {
             >
               Read more
             </Button>
+          </Container>
+        )}
+
+
+        {newArrivalSection?.length > 0 &&
+          newArrivalSection[0]?.is_visible_on_website === true && (
+          <Container maxW={"container.xl"} mb={5} centerContent>
+            <LazyLoadImage
+              src={newArrivalSection[0]?.image}
+              alt=""
+              style={{
+                opacity: 1,
+                transition: "opacity 0.7s", // Note the corrected syntax here
+              }}
+            />
+            <Grid
+            
+              templateColumns={{
+                base: "repeat(1, 1fr)",
+                md: "repeat(1, 1fr)",
+              }}
+              gap={10}
+              my={6}
+              px={15}
+            >
+              {newArrivalSection[0]?.images?.length > 0 &&
+                newArrivalSection[0]?.images?.map((product) => (
+                  <GridItem
+                    key={product.id}
+                    onClick={() => {
+                      if (product.product) {
+                        navigate(`/products/${product.product}`);
+                      }
+                    }}
+                    cursor={product.product ? "pointer" : "default"}
+                  >
+                    <LazyLoadImage
+                      src={product.image}
+                      style={{
+                        opacity: 1,
+                        transition: "opacity 0.7s",
+                      }}
+                    />
+                  </GridItem>
+                ))}
+            </Grid>
           </Container>
         )}
 
