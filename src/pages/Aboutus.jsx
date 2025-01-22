@@ -1,16 +1,21 @@
 import Footer from "../components/Footer";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import Navbar from "../components/Navbar";
-import { Box, Container, Flex, Image, Heading,Text,Button } from "@chakra-ui/react";
+import { Box, Container, Flex, Image, Heading, Text, Button } from "@chakra-ui/react";
 import { useNavigate, NavLink as RouterLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import ScrollToTop from "../components/ScrollToTop";
+import MetaTags from "../context/MetaTagsContext";
 const Aboutus = () => {
   let { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const IsMobileView = searchParams.get("mobile") ?? "false";
+  const pageUrl = "/about-us";
+
   return (
     <>
+      <MetaTags pageUrl={pageUrl} />
+
       {IsMobileView !== "true" && <Navbar />}
       <Container maxW={"container.xl"} alignContent={"flex-start"}>
         <BreadCrumbCom second={"About Us"} secondUrl={"/about-us"} />{" "}
@@ -24,7 +29,7 @@ const Aboutus = () => {
           <Box
             fontWeight={"600"}
             color="text.500"
-            fontSize={{md:"27px",base:24}}
+            fontSize={{ md: "27px", base: 24 }}
             textAlign={"center"}
           >
             About Sat Aushadh
@@ -57,7 +62,7 @@ const Aboutus = () => {
             <br />
             <br />
           </Box>
-          <Heading textAlign={"center"} color={"text.500"} fontSize={{md:"27px",base:22}}>
+          <Heading textAlign={"center"} color={"text.500"} fontSize={{ md: "27px", base: 22 }}>
             Know more About our Parent Company
           </Heading>
           <Image
@@ -74,19 +79,19 @@ const Aboutus = () => {
             urban household
           </Text>
           <Button
-          fontWeight={700}
-          color={"brand.500"}
-          as={RouterLink}
-          to={"https://www.suryanorganic.com/"}
-          target="_blank"
-          variant={"outline"}
-          borderRadius={"10px"}
-          borderColor={"brand.500"}
-          _hover={{ bgColor: "brand.500", color: "white" }}
-          mx={"auto"}
-        >
-          Read more
-        </Button>
+            fontWeight={700}
+            color={"brand.500"}
+            as={RouterLink}
+            to={"https://www.suryanorganic.com/"}
+            target="_blank"
+            variant={"outline"}
+            borderRadius={"10px"}
+            borderColor={"brand.500"}
+            _hover={{ bgColor: "brand.500", color: "white" }}
+            mx={"auto"}
+          >
+            Read more
+          </Button>
         </Flex>
         <hr />
         <Box
@@ -118,7 +123,7 @@ const Aboutus = () => {
           />
         </Container>
       </Container>
-      <ScrollToTop/>
+      <ScrollToTop />
       {IsMobileView !== "true" && <Footer />}
     </>
   );

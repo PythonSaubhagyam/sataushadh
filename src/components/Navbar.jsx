@@ -430,7 +430,21 @@ export default function Navbar() {
     };
   }, []);
   const Logout = () => {
-    localStorage.clear();
+    // localStorage.clear();
+    const userKeys = [
+      "token",
+      "first_name",
+      "last_name",
+      "email",
+      "phone_no",
+      "wishlist_counter",
+      "allow_company_list",
+      "is_sose_elite_user",
+      "id",
+      "access",
+    ];
+
+    userKeys.forEach((key) => localStorage.removeItem(key));
     CartEmitter.emit("updateCartCount", 0);
     CartEmitter.emit("updateProductTotal", 0);
     toast({
@@ -646,15 +660,15 @@ export default function Navbar() {
                       style={
                         all
                           ? {
-                              background: "#436131",
-                              color: "white",
-                              borderRadius: 5,
-                            }
+                            background: "#436131",
+                            color: "white",
+                            borderRadius: 5,
+                          }
                           : {
-                              background: "white",
-                              color: "black",
-                              borderRadius: 5,
-                            }
+                            background: "white",
+                            color: "black",
+                            borderRadius: 5,
+                          }
                       }
                     >
                       <Box
@@ -695,8 +709,7 @@ export default function Navbar() {
                                     setOpenAccrodion();
                                   } else {
                                     navigate(
-                                      `/shop?page=1&category=${
-                                        section.id
+                                      `/shop?page=1&category=${section.id
                                       }&category_name=${encodeURIComponent(
                                         section?.name
                                       )}`
@@ -762,8 +775,7 @@ export default function Navbar() {
                                                     setOpen(Open);
                                                   } else {
                                                     navigate(
-                                                      `/shop?page=1&category=${
-                                                        subcategory.id
+                                                      `/shop?page=1&category=${subcategory.id
                                                       }&category_name=${encodeURIComponent(
                                                         subcategory?.name
                                                       )}`
@@ -784,8 +796,7 @@ export default function Navbar() {
                                                 <AccordionIcon
                                                   onClick={() =>
                                                     navigate(
-                                                      `/shop?page=1&category=${
-                                                        subcategory.id
+                                                      `/shop?page=1&category=${subcategory.id
                                                       }&category_name=${encodeURIComponent(
                                                         subcategory?.name
                                                       )}`
@@ -821,8 +832,7 @@ export default function Navbar() {
                                                           key={i}
                                                           onClick={() => {
                                                             navigate(
-                                                              `/shop?page=1&category=${
-                                                                children.id
+                                                              `/shop?page=1&category=${children.id
                                                               }&category_name=${encodeURIComponent(
                                                                 children?.name
                                                               )}`
@@ -910,7 +920,7 @@ export default function Navbar() {
           <GridItem
             rowSpan={2}
             colSpan={1}
-            // style={{ borderBottom: "0.5px solid #b7b7b7" }}
+          // style={{ borderBottom: "0.5px solid #b7b7b7" }}
           >
             <Link as={ReactRouterLink} to="/">
               <Image
@@ -925,7 +935,7 @@ export default function Navbar() {
             colSpan={7}
             display={"flex"}
             alignItems={"center"}
-            // style={{ borderBottom: "0.5px solid #b7b7b7" }}
+          // style={{ borderBottom: "0.5px solid #b7b7b7" }}
           >
             <InputGroup size="sm" width={"100%"} mt={3}>
               <Input
@@ -1111,7 +1121,7 @@ export default function Navbar() {
           <GridItem
             colSpan={9}
             display={"flex"}
-            // style={{ borderBottom: "0.5px solid #b7b7b7" }}
+          // style={{ borderBottom: "0.5px solid #b7b7b7" }}
           >
             <Flex
               as={"nav"}
@@ -1166,8 +1176,7 @@ export default function Navbar() {
                           onMouseEnter={() => handleShow1(section.children)}
                           onClick={() =>
                             navigate(
-                              `/shop?page=1&category=${
-                                section.id
+                              `/shop?page=1&category=${section.id
                               }&category_name=${encodeURIComponent(
                                 section?.name
                               )}`
@@ -1196,8 +1205,7 @@ export default function Navbar() {
                         onMouseEnter={() => handleShowSubMenu(item.children)}
                         onClick={() =>
                           navigate(
-                            `/shop?page=1&category=${
-                              item.id
+                            `/shop?page=1&category=${item.id
                             }&category_name=${encodeURIComponent(item?.name)}`
                           )
                         }
@@ -1219,8 +1227,7 @@ export default function Navbar() {
                         key={nestedIndex}
                         onClick={() =>
                           navigate(
-                            `/shop?page=1&category=${
-                              item.id
+                            `/shop?page=1&category=${item.id
                             }&category_name=${encodeURIComponent(item?.name)}`
                           )
                         }
