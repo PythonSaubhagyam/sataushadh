@@ -49,7 +49,7 @@ const MetaTags = ({ pageUrl }) => {
   if (metaData) {
     return (
       <Helmet>
-        <title>{metaData.title || "CO FEE CO"}</title>
+        <title>{metaData.title || "Sataushad"}</title>
         <meta name="description" content={metaData.description} />
         <meta name="keywords" content={metaData.keywords} />
       </Helmet>
@@ -58,11 +58,11 @@ const MetaTags = ({ pageUrl }) => {
 
   return (
     <Helmet>
-      <title>CO FEE CO</title>
+      <title>Sataushad</title>
       <meta
         name="description"
-        content="Co Fee Co is committed to bringing you the very best and most 
-        refreshing coffee and herbs with minimal impact to the environment."
+        content="Ancient natural ingredients for holistic health and wellness.
+         Harness the power of fresh, effective products for vitality."
       />
       <meta name="keywords" content="girgauveda,contact us,SOSE Elite" />
     </Helmet>
