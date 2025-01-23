@@ -37,124 +37,109 @@ import {
 } from "@chakra-ui/react";
 import client from "../setup/axiosClient";
 import CheckOrSetUDID from "../utils/checkOrSetUDID";
-import { useNavigate, NavLink as RouterLink } from "react-router-dom";
+import { useNavigate, NavLink as RouterLink, Link as ReactRouterLink, } from "react-router-dom";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import Testimonials from "../components/testimonials";
+import { initializeAppData } from "../redux/slices/homeApi";
+import { useDispatch, useSelector } from "react-redux";
 
-const images = [
-  {
-    image1: require("../assets/HomaPage/amla.jpg"),
-    id: 1770,
-  },
-  {
-    image1: require("../assets/HomaPage/triphla powder.jpg"),
-    id: 1783,
-  },
-  {
-    image1: require("../assets/HomaPage/moringa.jpg"),
-    id: 1785,
-  },
-  {
-    image1: require("../assets/HomaPage/wheatgrass.jpg"),
-    id: 1773,
-  },
-  {
-    image1: require("../assets/HomaPage/spirulina.jpg"),
-    id: 1786,
-  },
-];
+// const images = [
+//   {
+//     image1: require("../assets/HomaPage/amla.jpg"),
+//     id: 1770,
+//   },
+//   {
+//     image1: require("../assets/HomaPage/triphla powder.jpg"),
+//     id: 1783,
+//   },
+//   {
+//     image1: require("../assets/HomaPage/moringa.jpg"),
+//     id: 1785,
+//   },
+//   {
+//     image1: require("../assets/HomaPage/wheatgrass.jpg"),
+//     id: 1773,
+//   },
+//   {
+//     image1: require("../assets/HomaPage/spirulina.jpg"),
+//     id: 1786,
+//   },
+// ];
 
-const Licences = [
-  // {
-  //   src:require("../assets/HomaPage/apeda (1).png"),
-  //   alt: "Gir Gauveda",
-  //   size:180
-  // },
-  // {
-  //   src:  require("../assets/HomaPage/fassai_2 (1).png"),
-  //   alt: "So Good",
-  //   size:180
-  // },
-  {
-    src: require("../assets/HomaPage/MSME.png"),
-    alt: "MSME",
-    size: 180,
-  },
-  // {
-  //   src:require("../assets/HomaPage/spices_board (1).png"),
-  //   alt: "Himalayan Mountain",
-  //   size:180
-  // },
-  // {
-  //   src: require("../assets/HomaPage/lPCR_logo (1).png"),
-  //   alt: "CoffeeCo",
-  //   size:140
-  // },
-  // {
-  //   src:require("../assets/HomaPage/aayush (1).png"),
-  //   alt: "Shishu veda",
-  //   size:140
-  // },
-];
+// const Licences = [
+//   // {
+//   //   src:require("../assets/HomaPage/apeda (1).png"),
+//   //   alt: "Gir Gauveda",
+//   //   size:180
+//   // },
+//   // {
+//   //   src:  require("../assets/HomaPage/fassai_2 (1).png"),
+//   //   alt: "So Good",
+//   //   size:180
+//   // },
+//   {
+//     src: require("../assets/HomaPage/MSME.png"),
+//     alt: "MSME",
+//     size: 180,
+//   },
+//   // {
+//   //   src:require("../assets/HomaPage/spices_board (1).png"),
+//   //   alt: "Himalayan Mountain",
+//   //   size:180
+//   // },
+//   // {
+//   //   src: require("../assets/HomaPage/lPCR_logo (1).png"),
+//   //   alt: "CoffeeCo",
+//   //   size:140
+//   // },
+//   // {
+//   //   src:require("../assets/HomaPage/aayush (1).png"),
+//   //   alt: "Shishu veda",
+//   //   size:140
+//   // },
+// ];
 
-const banner = [
-  {
-    id: 11,
-    alt_text: "Image3",
-    image: require("../assets/HomaPage/Satveda_banner.jpg"),
-    display_status: true,
-    image_url: null,
-  },
+// const banner = [
+//   {
+//     id: 11,
+//     alt_text: "Image3",
+//     image: require("../assets/HomaPage/Satveda_banner.jpg"),
+//     display_status: true,
+//     image_url: null,
+//   },
 
-  {
-    id: 12,
-    alt_text: "Image2",
-    image: require("../assets/HomaPage/banner 1.jpg"),
-    display_status: true,
-    image_url: null,
-  },
+//   {
+//     id: 12,
+//     alt_text: "Image2",
+//     image: require("../assets/HomaPage/banner 1.jpg"),
+//     display_status: true,
+//     image_url: null,
+//   },
 
-  {
-    id: 13,
-    alt_text: "Image3",
-    image: require("../assets/HomaPage/Golden_Milk_.jpg"),
-    display_status: true,
-    image_url: null,
-  },
-  {
-    id: 14,
-    alt_text: "Image3",
-    image: require("../assets/HomaPage/BANNER 2.jpg"),
-    display_status: true,
-    image_url: null,
-  },
-];
+//   {
+//     id: 13,
+//     alt_text: "Image3",
+//     image: require("../assets/HomaPage/Golden_Milk_.jpg"),
+//     display_status: true,
+//     image_url: null,
+//   },
+//   {
+//     id: 14,
+//     alt_text: "Image3",
+//     image: require("../assets/HomaPage/BANNER 2.jpg"),
+//     display_status: true,
+//     image_url: null,
+//   },
+// ];
 
 export default function Home() {
   const [isFullScreen] = useMediaQuery("(min-width: 768px)");
   const width = useBreakpointValue({ base: "100%", lg: "100%" });
   const height = useBreakpointValue({ base: "300", lg: "400" });
-  const [banners, setBanners] = useState([]);
-  const [newArrival, setNewArrival] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [isMobile] = useMediaQuery("(max-width: 480px)");
-  const [aboutSection, setAboutSection] = useState([]);
-  const [certificateSection, setCertifcateSection] = useState([]);
-  const [otherImagesSection, setOtherImagesSection] = useState([]);
-  const [masalaSection, setMasalaSection] = useState([]);
-  const [licencesSection, setLicencesSection] = useState([]);
-  const [nonGMOSection, setNonGMOSection] = useState([]);
   const [MustTry, setMustTry] = useState([]);
   const [BestSeller, setBestSeller] = useState([]);
-  const [sections, setSections] = useState([]);
-  const [awardsSection, setAwardSection] = useState([]);
-  const [servicesSection, setServicesSection] = useState([]);
-  const [availableSection, setAvailableSection] = useState([]);
-  const [statisticsSection, setStatisticsSection] = useState([]);
-  const [newArrivalSection, setNewArrivalSection] = useState([])
-  // let [isFull] = useMediaQuery("(max-width:1920px)");
-  const [blogs, setBlogs] = useState([]);
   const loginInfo = checkLogin();
+  const [isMobile] = useMediaQuery("(max-width: 480px)");
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const checkOrSetUDIDInfo = CheckOrSetUDID();
   const [showPopup, setShowPopup] = useState(
@@ -166,142 +151,52 @@ export default function Home() {
     const init = async () => {
       await CheckOrSetUDID();
     };
-
     init();
-    // getHomePageData();
-    getBanners();
-    getBlogs();
-    getArrival();
-    getMustTry();
-    getBestSeller();
-    getLowerSection();
-    getUpperSectionUpper();
-    getUpperSectionLower();
-    getStatisticsSection();
-
     if (showPopup === null && !loginInfo.isLoggedIn) {
       setIsLoginModalOpen(true);
     }
   }, []);
 
-  async function getBanners() {
-    setLoading(true);
-    try {
-      const response = await client.get("/ecommerce/banners/?sequence=Upper");
+  const dispatch = useDispatch();
+  const {
+    banners,
+    upperSection,
+    newArrival,
+    mustTry,
+    bestSeller,
+    lowerSection1,
+    blogs,
+    statisticsSection,
+    lowerSection2,
+    loading,
+    hasFetched,
+  } = useSelector((state)=>state.home);
 
-      if (response.data.status === true) {
-        setBanners(response?.data?.banner);
-      }
+  const {
+    aboutSection,
+    certificateSection,
+    otherImagesSection,
+    masalaSection,
+    newArrivalSection,
+  } = upperSection;
 
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      console.error("Error fetching data:", error);
-    }
-  }
-  async function getBlogs() {
-    const params = {};
-    const response = await client.get("/home/blogs/", {
-      params: params,
-    });
-    if (response.data.status === true) {
-      setBlogs(response.data.blogs);
-    }
-    setLoading(false);
-  }
-  async function getArrival() {
-    const response = await client.get("newarrival/list");
-    if (response) {
-      setNewArrival(response.data.data);
-    }
-    setLoading(false);
-  }
+  const {
+    licencesSection,
+    nonGMOSection,
+  } = lowerSection1;
 
-  async function getMustTry() {
-    const response = await client.get("musttry/list");
-    if (response) {
-      setMustTry(response.data.data);
-    }
-    setLoading(false);
-  }
-  async function getBestSeller() {
-    const response = await client.get("bestofalltime/list");
-    if (response) {
-      setBestSeller(response.data.data);
-    }
-    setLoading(false);
-  }
+  const {
+    awardsSection,
+    servicesSection,
+    availableSection,
+  } = lowerSection2;
 
-  async function getLowerSection() {
-    const params = {};
-    const response = await client.get("/lower-section/", {
-      params: params,
-    });
-    if (response.data.status === true) {
-      setSections(response.data.data);
-
-      const ourServicesSection = response.data.data?.filter(
-        (section) => section.id === 2
-      );
-      const availableAtSection = response.data.data?.filter(
-        (section) => section.id === 3
-      );
-      const ourAwardsSection = response.data.data?.filter(
-        (section) => section.id === 1
-      );
-
-      setAwardSection(ourAwardsSection);
-      setServicesSection(ourServicesSection);
-      setAvailableSection(availableAtSection);
-    }
-  }
-
-  async function getStatisticsSection() {
-    const params = {};
-    const response = await client.get("/statistics-section/", {
-      params: params,
-    });
-    if (response.data.status === true) {
-      setStatisticsSection(response?.data?.data);
-    }
-  }
-  const getUpperSectionUpper = async () => {
-    const response = await client.get("/sataushadh-section/?type=upper");
-
-    if (response.data.status === true) {
-      const about = response.data.data?.filter((section) => section.id === 1);
-      const certificate = response.data.data?.filter(
-        (section) => section.id === 2
-      );
-      const otherImages = response.data.data?.filter(
-        (section) => section.id === 3
-      );
-      const masala = response.data.data?.filter((section) => section.id === 4);
-      
-      const newArrival = response.data.data?.filter(
-        (section) => section.id === 7
-      );
-      // console.log(newArrival)
-      setAboutSection(about);
-      setCertifcateSection(certificate);
-      setOtherImagesSection(otherImages);
-      setMasalaSection(masala);
-      setNewArrivalSection(newArrival);
-    }
-  };
-  const getUpperSectionLower = async () => {
-    const response = await client.get("/sataushadh-section/?type=lower");
-
-    if (response.data.status === true) {
-      const licences = response.data.data?.filter(
-        (section) => section.id === 5
-      );
-      const nonGMO = response.data.data?.filter((section) => section.id === 6);
-
-      setLicencesSection(licences);
-      setNonGMOSection(nonGMO);
-    }
-  };
+  useEffect(() => {
+   if(!hasFetched){
+    dispatch(initializeAppData());
+   }
+  }, [dispatch,hasFetched]);
+  
   return (
     <>
       {/* {loading === true ? (
@@ -469,14 +364,14 @@ export default function Home() {
       <ProductListSectionHome
         title="MUST TRY : SAT AUSHADH Products"
         loading={loading}
-        products={MustTry}
+        products={mustTry}
         type={isMobile && "carousal"}
       />
 
       <ProductListSectionHome
         title="All Time Best Sellers"
         loading={loading}
-        products={BestSeller}
+        products={bestSeller}
         type={isMobile && "carousal"}
       />
       <Container maxW={"container.xl"}>
@@ -519,7 +414,7 @@ export default function Home() {
                   />
                   <LinkOverlay
                     _hover={{ color: "brand.500" }}
-                    href={`/blogs/${blog.id}/`}
+                    as={ReactRouterLink} to={`/blogs/${blog.id}/`}
                   >
                     <Heading size="sm" fontWeight={500} m={2}>
                       {blog.title}
