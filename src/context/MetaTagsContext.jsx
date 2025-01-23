@@ -49,7 +49,7 @@ const MetaTags = ({ pageUrl }) => {
   if (metaData) {
     return (
       <Helmet>
-        <title>{metaData.title || "Sataushad"}</title>
+        <title>{metaData.title || "Sataushadh"}</title>
         <meta name="description" content={metaData.description} />
         <meta name="keywords" content={metaData.keywords} />
       </Helmet>
@@ -58,7 +58,7 @@ const MetaTags = ({ pageUrl }) => {
 
   return (
     <Helmet>
-      <title>Sataushad</title>
+      <title>Sataushadh</title>
       <meta
         name="description"
         content="Ancient natural ingredients for holistic health and wellness.
