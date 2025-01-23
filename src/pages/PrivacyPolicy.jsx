@@ -5,17 +5,20 @@ import Navbar from "../components/Navbar";
 import { Box, Container, VStack, Image, Text, Heading } from "@chakra-ui/react";
 import ScrollToTop from "../components/ScrollToTop";
 import { useLocation } from "react-router-dom";
+import MetaTags from "../context/MetaTagsContext";
 
 
 const PrivacyPolicy = () => {
   let { search } = useLocation();
-    const searchParams = new URLSearchParams(search);
-   const IsMobileView = searchParams.get("mobile") ?? "false";
+  const searchParams = new URLSearchParams(search);
+  const IsMobileView = searchParams.get("mobile") ?? "false";
+  const pageUrl = "/privacy-policy";
 
   return (
     <>
-     
-    {IsMobileView !== "true" && <Navbar />}
+      <MetaTags pageUrl={pageUrl} />
+
+      {IsMobileView !== "true" && <Navbar />}
 
       <Container maxW={"container.xl"} alignContent={"flex-start"}>
         <BreadCrumbCom
@@ -332,7 +335,7 @@ const PrivacyPolicy = () => {
           }}
         />
       </Container>
-      <ScrollToTop/>
+      <ScrollToTop />
       {IsMobileView !== "true" && <Footer />}
 
 

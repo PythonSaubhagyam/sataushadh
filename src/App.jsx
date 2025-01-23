@@ -8,6 +8,8 @@ import { useEffect } from "react";
 import client from "./setup/axiosClient";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import { HelmetProvider } from "react-helmet-async";
+
 
 export default function App() {
   moment.tz.setDefault("Asia/Kolkata");
@@ -20,7 +22,9 @@ export default function App() {
   return (
     <Provider store={store}>
       <ChakraProvider theme={theme}>
-        <RouterProvider router={Router}></RouterProvider>
+        <HelmetProvider>
+          <RouterProvider router={Router}></RouterProvider>
+        </HelmetProvider>
       </ChakraProvider>
     </Provider>
   );

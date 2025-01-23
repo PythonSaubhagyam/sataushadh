@@ -22,11 +22,12 @@ import { AsyncSelect } from "chakra-react-select";
 import checkLogin from "../utils/checkLogin";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import { useLocation } from "react-router-dom";
+import MetaTags from "../context/MetaTagsContext";
 
 export default function ContactUs() {
   let { search } = useLocation();
-    const searchParams = new URLSearchParams(search);
-   const IsMobileView = searchParams.get("mobile") ?? "false";
+  const searchParams = new URLSearchParams(search);
+  const IsMobileView = searchParams.get("mobile") ?? "false";
 
   const initialFormData = Object.freeze({
     company: "",
@@ -44,7 +45,7 @@ export default function ContactUs() {
   const [callingCode, setCallingCode] = useState("");
   const toast = useToast();
   const loginInfo = checkLogin();
-  const width = useBreakpointValue({md:"340px",base:"300px"})
+  const width = useBreakpointValue({ md: "340px", base: "300px" })
   useEffect(() => {
     getCountries(); // eslint-disable-next-line
   }, []);
@@ -125,9 +126,13 @@ export default function ContactUs() {
     }
     return Options;
   };
+  const pageUrl = "/contact-us";
+
   return (
     <>
-       {IsMobileView !== "true" && <Navbar />}
+      <MetaTags pageUrl={pageUrl} />
+
+      {IsMobileView !== "true" && <Navbar />}
 
       <Container maxW="container.xl">
         <BreadCrumbCom second={"Contact Us"} secondUrl={"/contact-us"} />
@@ -146,12 +151,12 @@ export default function ContactUs() {
           left="50%"
           transform="translate(-50%, -50%)"
           zIndex="1"
-          // Optional: Add background to improve text readability
+        // Optional: Add background to improve text readability
         >
           Contact  Us
         </Text>
       </Container>
-      
+
       <Container maxW="container.lg" pb={10}>
         {/* <Text
           pb={2}
@@ -173,7 +178,7 @@ export default function ContactUs() {
           <FormControl
             as={Flex}
             direction={{ base: "column", md: "row" }}
-            align={{md:"center",base:"flex-start"}}
+            align={{ md: "center", base: "flex-start" }}
             isRequired
           >
             <FormLabel
@@ -201,7 +206,7 @@ export default function ContactUs() {
           <FormControl
             as={Flex}
             direction={{ base: "column", md: "row" }}
-            align={{md:"center",base:"flex-start"}}
+            align={{ md: "center", base: "flex-start" }}
             isRequired
             mt="5"
           >
@@ -230,7 +235,7 @@ export default function ContactUs() {
           <FormControl
             as={Flex}
             direction={{ base: "column", md: "row" }}
-            align={{md:"center",base:"flex-start"}}
+            align={{ md: "center", base: "flex-start" }}
             isRequired
             mt="5"
           >
@@ -294,7 +299,7 @@ export default function ContactUs() {
             <FormControl
               as={Flex}
               direction={{ base: "column", md: "row" }}
-              align={{md:"center",base:"flex-start"}}
+              align={{ md: "center", base: "flex-start" }}
               isRequired
               mt="5"
             >
@@ -330,7 +335,7 @@ export default function ContactUs() {
           <FormControl
             as={Flex}
             direction={{ base: "column", md: "row" }}
-            align={{md:"center",base:"flex-start"}}
+            align={{ md: "center", base: "flex-start" }}
             isRequired
             mt="5"
           >
@@ -359,7 +364,7 @@ export default function ContactUs() {
           <FormControl
             as={Flex}
             direction={{ base: "column", md: "row" }}
-            align={{md:"center",base:"flex-start"}}
+            align={{ md: "center", base: "flex-start" }}
             isRequired
             mt="5"
           >
@@ -388,7 +393,7 @@ export default function ContactUs() {
           <FormControl
             as={Flex}
             direction={{ base: "column", md: "row" }}
-            align={{md:"center",base:"flex-start"}}
+            align={{ md: "center", base: "flex-start" }}
             isRequired
             mt="5"
             mb={"5"}

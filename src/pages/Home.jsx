@@ -42,6 +42,7 @@ import { ChevronRightIcon } from "@chakra-ui/icons";
 import Testimonials from "../components/testimonials";
 import { initializeAppData } from "../redux/slices/homeApi";
 import { useDispatch, useSelector } from "react-redux";
+import MetaHome from "../components/MetaHome";
 
 // const images = [
 //   {
@@ -197,8 +198,19 @@ export default function Home() {
    }
   }, [dispatch,hasFetched]);
   
+  const pageUrl = "/"
+  
   return (
     <>
+    <MetaHome pageUrl={pageUrl} />
+    {/* <Helmet>
+        <title>CO FEE CO - Home</title> 
+        <meta
+          name="description"
+          content="Co Fee Co is committed to bringing you the very best and most 
+          refreshing coffee and herbs with minimal impact to the environment."
+        />
+      </Helmet>  */}
       {/* {loading === true ? (
         <Center h="100vh" w="100vw" backgroundColor={"bg.500"}>
           <Loader site={true} />

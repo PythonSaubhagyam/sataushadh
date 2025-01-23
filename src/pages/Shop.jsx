@@ -37,6 +37,7 @@ import { Select } from "chakra-react-select";
 import CapitalizeLetter from "../utils/CommanFunction";
 import { fetchFilters } from "../redux/slices/shopApi";
 import { useDispatch, useSelector } from "react-redux";
+import MetaTags from "../context/MetaTagsContext";
 
 // import Paginator from "../components/Paginator";
 
@@ -369,8 +370,12 @@ export default function Shop() {
       // getProducts();
     }
   };
+  const pageUrl = "/shop";
+
   return (
     <>
+      <MetaTags pageUrl={pageUrl} />
+
       <Navbar />
       <Container maxW="container.xl">
         <BreadCrumbCom second={"Shop"} secondUrl={"/shop"} />
