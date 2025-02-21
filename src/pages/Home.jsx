@@ -9,6 +9,9 @@ import ScrollToTop from "../components/ScrollToTop";
 import LoginModal from "../components/LoginModal";
 import checkLogin from "../utils/checkLogin";
 
+import CountUp from 'react-countup';
+import ScrollTrigger from 'react-scroll-trigger';
+
 import ProductListSectionHome from "../components/ProductListSectionHome";
 
 import {
@@ -148,6 +151,8 @@ export default function Home() {
     sessionStorage.getItem("hasShownPopup")
   );
   const isMobiles = width <= 768;
+  const [countUp, setCountUp] = useState(false)
+
   const navigate = useNavigate();
   useEffect(() => {
     const init = async () => {
@@ -411,12 +416,22 @@ export default function Home() {
               {statisticsSection?.length > 0 &&
                 statisticsSection?.map((data) => (
                   <Stat>
-                    <StatNumber
-                      color="text.500"
-                      fontSize={{ base: "3xl", md: "3xl" }}
+                  <StatNumber fontSize={{ base: "3xl", md: "3xl" }} color="brand.500">
+                    <ScrollTrigger
+                      onEnter={() => setCountUp(true)}
+                      // onExit={() => setCountUp(false)}
                     >
-                      {data?.value}
-                    </StatNumber>
+                      {countUp ? (
+                        <CountUp
+                          start={0}
+                          end={Number(data.value.replace('+', ''))}
+                          duration={2}
+                          delay={0}
+                        />
+                      ) : null}
+                      {data?.name === "Positive Feedback" ? "%+" : "+"}
+                      </ScrollTrigger>
+                  </StatNumber>
                     <StatHelpText color="gray.600">{data?.name}</StatHelpText>
                   </Stat>
                 ))}
