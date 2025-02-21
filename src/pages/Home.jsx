@@ -43,6 +43,7 @@ import Testimonials from "../components/testimonials";
 import { initializeAppData } from "../redux/slices/homeApi";
 import { useDispatch, useSelector } from "react-redux";
 import MetaHome from "../components/MetaHome";
+import BlogSliderHome from "../components/BlogSliderHome";
 
 // const images = [
 //   {
@@ -171,7 +172,7 @@ export default function Home() {
     lowerSection2,
     loading,
     hasFetched,
-  } = useSelector((state)=>state.home);
+  } = useSelector((state) => state.home);
 
   const {
     aboutSection,
@@ -193,17 +194,17 @@ export default function Home() {
   } = lowerSection2;
 
   useEffect(() => {
-   if(!hasFetched){
-    dispatch(initializeAppData());
-   }
-  }, [dispatch,hasFetched]);
-  
+    if (!hasFetched) {
+      dispatch(initializeAppData());
+    }
+  }, [dispatch, hasFetched]);
+
   const pageUrl = "/"
-  
+
   return (
     <>
-    <MetaHome pageUrl={pageUrl} />
-    {/* <Helmet>
+      <MetaHome pageUrl={pageUrl} />
+      {/* <Helmet>
         <title>CO FEE CO - Home</title> 
         <meta
           name="description"
@@ -269,8 +270,8 @@ export default function Home() {
         )}
 
 
-        {newArrivalSection?.length > 0 &&
-          newArrivalSection[0]?.is_visible_on_website === true && (
+      {newArrivalSection?.length > 0 &&
+        newArrivalSection[0]?.is_visible_on_website === true && (
           <Container maxW={"container.xl"} mb={5} centerContent>
             <LazyLoadImage
               src={newArrivalSection[0]?.image}
@@ -281,7 +282,7 @@ export default function Home() {
               }}
             />
             <Grid
-            
+
               templateColumns={{
                 base: "repeat(1, 1fr)",
                 md: "repeat(1, 1fr)",
@@ -296,7 +297,7 @@ export default function Home() {
                     key={product.id}
                     onClick={() => {
                       if (product.product) {
-                        navigate(`/products/${product.product}`);
+                        navigate(`/products/${product.product}/${product.product_name.replace(/\s+/g, "-")}`);
                       }
                     }}
                     cursor={product.product ? "pointer" : "default"}
@@ -346,7 +347,7 @@ export default function Home() {
                     cursor={"pointer"}
                     onClick={() => {
                       if (data?.product !== null) {
-                        navigate(`/products/${data.product}`);
+                        navigate(`/products/${data.product}/${data.product_name.replace(/\s+/g, "-")}`);
                       }
                     }}
                   />
@@ -386,76 +387,9 @@ export default function Home() {
         products={bestSeller}
         type={isMobile && "carousal"}
       />
-      <Container maxW={"container.xl"}>
-        <Heading
-          color="brand.500"
-          size="lg"
-          mx="auto"
-          align={"center"}
-          mt={3}
-          pb={"10px"}
-        >
-          BLOGS
-        </Heading>
 
-        <Grid
-          templateColumns={{
-            base: "repeat(1,1fr)",
-            md: "repeat(2,1fr)",
-            lg: "repeat(4,1fr)",
-          }}
-          px={2}
-          py={3}
-          spacing="40px"
-        >
-          {blogs?.slice(0, 8).map((blog) => (
-            <GridItem key={blog.id} m={4}>
-              <Card>
-                <LinkBox h={400}>
-                  <Image
-                    src={blog.banner}
-                    w="100%"
-                    h="300px"
-                    loading="lazy"
-                    objectFit={"cover"}
-                    borderRadius={5}
-                    style={{
-                      opacity: 1,
-                      transition: "opacity 0.7s", // Note the corrected syntax here
-                    }}
-                  />
-                  <LinkOverlay
-                    _hover={{ color: "brand.500" }}
-                    as={ReactRouterLink} to={`/blogs/${blog.id}/`}
-                  >
-                    <Heading size="sm" fontWeight={500} m={2}>
-                      {blog.title}
-                    </Heading>
-                  </LinkOverlay>
-                </LinkBox>
-                <Flex m={2} justifyContent={"space-between"}>
-                  <Text fontSize={"sm"} color="gray.500">
-                    {new Intl.DateTimeFormat("en-CA", {
-                      dateStyle: "long",
-                      timeZone: "Asia/Kolkata",
-                    }).format(new Date(blog.published_at))}
-                  </Text>
-                  <Text
-                    fontSize={"sm"}
-                    fontWeight={600}
-                    color={"brand.500"}
-                    onClick={() => navigate(`/blogs/${blog.id}/`)}
-                    cursor={"pointer"}
-                  >
-                    Read more
-                    <ChevronRightIcon />
-                  </Text>
-                </Flex>
-              </Card>
-            </GridItem>
-          ))}
-        </Grid>
-      </Container>
+      <BlogSliderHome blogs={blogs} />
+
       {statisticsSection?.length > 0 &&
         statisticsSection[0]?.is_visible_on_website === true && (
           <Container
@@ -591,7 +525,7 @@ export default function Home() {
               mx={"auto"}
               my={"5%"}
               src={nonGMOSection[0]?.image}
-              
+
             />
           </Container>
         )}

@@ -19,10 +19,13 @@ import { TimeIcon } from "@chakra-ui/icons";
 import { FaFacebookSquare, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 import dompurify from "dompurify";
 import ScrollToTop from "../components/ScrollToTop";
+import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
+import { CgMenuGridO } from "react-icons/cg";
 
 function Blog() {
   const [blogData, setBlogData] = useState(null);
   const [nextPost, setNextPost] = useState(null);
+  const [prevPost, setprevPost] = useState(null);
   const { blogId } = useParams();
 
   useEffect(() => {
@@ -36,6 +39,7 @@ function Blog() {
       setBlogData(response.data.blogData);
       if (response.data.nextPost) {
         setNextPost(response.data.nextPost);
+        setprevPost(response.data.previousPost)
       } else {
         setNextPost(null);
       }
@@ -59,7 +63,7 @@ function Blog() {
         </Text>
         <Image
           src={blogData?.banner_url}
-           w="100%"
+          w="100%"
           //  maxH="400px"
           my={3}
           objectFit={"cover"}
@@ -95,7 +99,7 @@ function Blog() {
               <Image
                 src={"https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/suryan organic inline.png"}
               />
-              <Text fontSize={"xs"} color="gray.500" mt={2}> 
+              <Text fontSize={"xs"} color="gray.500" mt={2}>
                 {blogData?.published_at &&
                   new Intl.DateTimeFormat("en-CA", {
                     dateStyle: "long",
@@ -109,11 +113,11 @@ function Blog() {
                 borderBottom={"1px"}
                 borderColor="gray.300"
                 pb={4}
-              
+
               >
                 SHARE THIS POST
               </Heading>
-               <ButtonGroup p={4} gap={2}>
+              <ButtonGroup p={4} gap={2}>
                 <a href="https://www.facebook.com/soseorganic/" target="_blank" rel="noopener noreferrer">
                   <IconButton
                     isRound
@@ -142,34 +146,44 @@ function Blog() {
             </Box>
           </Flex>
         </Flex>
-        <Box
-          mt={4}
-          ms="auto"
-          display={nextPost ? "flex" : "none"}
-          gap={4}
-          align="end"
-          width="fit-content"
-          maxW={{ base: "95vw", lg: "50vw" }}
+        <Container
+          maxW={{ base: "full", xl: "container.xl" }}
+          mt={2}
+          gap={10}
+          display="flex"
+          px={0}
+          alignItems="center"
+          justifyContent="center"
         >
-          <Box as={Link} to={`/blogs/${nextPost?.id}`}>
-            <Text
-              bg="brand.500"
-              color="white"
-              fontSize="sm"
-              px={2}
-              // w="fit-content"
-              ms="auto"
-            >
-              Read Next
-            </Text>
-            <Text fontSize={{ base: "md", lg: "2xl" }}>{nextPost?.title}</Text>
+          {/* Left Arrow - Disable if prevPost.id is 1 */}
+          <Box
+            as={Link}
+            to={prevPost?.id ? `/blogs/${prevPost.id}/${prevPost.title.replace(/\s+/g, "-")}` : "#"}
+            cursor={prevPost?.id > blogData?.id ? "not-allowed" : "pointer"}
+            opacity={prevPost?.id > blogData?.id ? 0.5 : 1}
+            pointerEvents={prevPost?.id > blogData?.id ? "none" : "auto"} // Prevent clicking if disabled
+          >
+            <RiArrowLeftSLine size={35} color="#436131" />
           </Box>
-          <AspectRatio w="300px" ratio={16 / 9}>
-            <Image src={nextPost?.banner_url} objectFit="cover" />
-          </AspectRatio>
-        </Box>
+
+          {/* Menu Grid Icon */}
+          <Box as={Link} to={`/blogs/`}>
+            <CgMenuGridO size={35} color="#436131" />
+          </Box>
+
+          {/* Right Arrow - Disable if nextPost.id is 42 */}
+          <Box
+            as={Link}
+            to={nextPost?.id ? `/blogs/${nextPost.id}/${nextPost.title.replace(/\s+/g, "-")}` : "#"}
+            cursor={nextPost?.id < blogData?.id ? "not-allowed" : "pointer"}
+            opacity={nextPost?.id < blogData?.id ? 0.5 : 1}
+            pointerEvents={nextPost?.id < blogData?.id ? "none" : "auto"} // Prevent clicking if disabled
+          >
+            <RiArrowRightSLine size={35} color="#436131" />
+          </Box>
+        </Container>
       </Container>
-      <ScrollToTop/>
+      <ScrollToTop />
       <Footer />
     </>
   );

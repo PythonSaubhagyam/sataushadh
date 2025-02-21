@@ -64,7 +64,6 @@ const MetaTags = ({ pageUrl }) => {
         content="Ancient natural ingredients for holistic health and wellness.
          Harness the power of fresh, effective products for vitality."
       />
-      <meta name="keywords" content="girgauveda,contact us,SOSE Elite" />
     </Helmet>
   );
 };

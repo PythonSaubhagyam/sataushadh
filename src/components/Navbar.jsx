@@ -341,6 +341,8 @@ export default function Navbar() {
       "is_sose_elite_user",
       "id",
       "access",
+      "cart_counter",
+
     ];
 
     userKeys.forEach((key) => localStorage.removeItem(key));
@@ -355,6 +357,9 @@ export default function Navbar() {
     });
 
     navigate("/");
+    setTimeout(() => {
+      window.location.reload();
+    });
     // CheckOrSetUDID();
   };
 
@@ -438,6 +443,8 @@ export default function Navbar() {
                           align="center"
                           bg="bg.100"
                           gap={4}
+                          onClick={() => setSearchResults(null)}
+
                         >
                           <Image src={result.image1} boxSize="10" />
                           <Text
@@ -448,7 +455,7 @@ export default function Navbar() {
                               lg: "75%",
                             }}
                           >
-                            <LinkOverlay as={ReactRouterLink} to={`/products/${result.id}`}>
+                            <LinkOverlay as={ReactRouterLink} to={`/products/${result.id}/${result.name.replace(/\s+/g, "-")}`}>
                               {result.name}
                             </LinkOverlay>
                           </Text>
@@ -908,6 +915,8 @@ export default function Navbar() {
                         borderRadius: 6,
                         cursor: "pointer",
                       }}
+                      onClick={() => setSearchResults(null)}
+
                     >
                       {/* <Image src={result.image1} boxSize="10" /> */}
                       <Text
@@ -918,7 +927,7 @@ export default function Navbar() {
                           lg: "75%",
                         }}
                       >
-                        <LinkOverlay as={ReactRouterLink} to={`/products/${result.id}`}>
+                        <LinkOverlay as={ReactRouterLink} to={`/products/${result.id}/${result.name.replace(/\s+/g, "-")}`}>
                           {result.name}
                         </LinkOverlay>
                       </Text>
