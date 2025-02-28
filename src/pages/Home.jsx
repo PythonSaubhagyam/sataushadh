@@ -376,21 +376,21 @@ export default function Home() {
         title="Try Our New Products"
         loading={loading}
         products={newArrival}
-        type={isMobile && "carousal"}
+        type={"carousal"}
       />
 
       <ProductListSectionHome
         title="MUST TRY : SAT AUSHADH Products"
         loading={loading}
         products={mustTry}
-        type={isMobile && "carousal"}
+        type={"carousal"}
       />
 
       <ProductListSectionHome
         title="All Time Best Sellers"
         loading={loading}
         products={bestSeller}
-        type={isMobile && "carousal"}
+        type={"carousal"}
       />
 
       <BlogSliderHome blogs={blogs} />
@@ -404,7 +404,7 @@ export default function Home() {
             py={2}
           >
             <SimpleGrid
-              columns={[2, 3, null, 4]}
+              columns={[2, 3, null, 5]}
               px={6}
               maxW={"container.xl"}
               my={6}
@@ -424,12 +424,13 @@ export default function Home() {
                       {countUp ? (
                         <CountUp
                           start={0}
-                          end={Number(data.value.replace('+', ''))}
+                          end={Number(data.value.replace(/[^\d]/g, ''))}
                           duration={2}
                           delay={0}
                         />
                       ) : null}
-                      {data?.name === "Positive Feedback" ? "%+" : "+"}
+                      {data?.name === "Positive Feedback" ? "%+" : data?.name === "Generation of Farmers" ? "th" : "+"}
+
                       </ScrollTrigger>
                   </StatNumber>
                     <StatHelpText color="gray.600">{data?.name}</StatHelpText>
