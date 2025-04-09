@@ -34,6 +34,8 @@ import formatTime from "../utils/formatTime";
 import { AsyncSelect } from "chakra-react-select";
 import ScrollToTop from "../components/ScrollToTop";
 import MetaTags from "../context/MetaTagsContext";
+import Captcha from "../components/Captcha";
+
 
 export default function BookAppointment() {
   const initialFormData = Object.freeze({
@@ -53,7 +55,8 @@ export default function BookAppointment() {
     is_taking_medicine: false,
     type_of_medicine_list: [],
   });
-
+  const [isVerified, setIsVerified] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
   const [countries, setCountries] = useState([]);
   const [callingCode, setCallingCode] = useState("");
@@ -596,6 +599,7 @@ export default function BookAppointment() {
                   </CheckboxGroup>
                 </FormControl>
               )}
+              <Captcha onVerify={setIsVerified} />
             </GridItem>
           </Grid>
           <Flex justify="center" mt={4}>
@@ -610,6 +614,9 @@ export default function BookAppointment() {
               _active={{
                 bg: "brand.500",
               }}
+              loadingText="Booking..."
+              setLoading={loading}
+              isDisabled={!isVerified}
             >
               Book Appointment
               <ArrowForwardIcon ps={1} boxSize={6} />
