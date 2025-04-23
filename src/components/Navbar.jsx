@@ -262,13 +262,13 @@ export default function Navbar() {
   }, [searchQuery]);
 
   const dispatch = useDispatch();
-  const { categories, mergedCategories, hasFetched } = useSelector((state)=>state.category);
+  const { categories, mergedCategories, hasFetched } = useSelector((state) => state.category);
   useEffect(() => {
-    if(!hasFetched){
+    if (!hasFetched) {
       dispatch(fetchCategories());
     }
   }, [dispatch])
-  
+
 
   async function getSearchResults() {
     const response = await client.get("/web/products/list/", {
@@ -460,7 +460,7 @@ export default function Navbar() {
                             </LinkOverlay>
                           </Text>
                           <Text fontSize="sm" fontWeight="600">
-                            ₹{result.base_price}
+                            ₹{Number(result.product_price || result.base_price || 0).toFixed(2)}
                           </Text>
                         </LinkBox>
                       ))}
@@ -932,7 +932,7 @@ export default function Navbar() {
                         </LinkOverlay>
                       </Text>
                       <Text fontSize="sm" fontWeight="600">
-                        ₹{result.base_price}
+                        ₹{Number(result.product_price || result.base_price || 0).toFixed(2)}
                       </Text>
                     </LinkBox>
                   ))}
