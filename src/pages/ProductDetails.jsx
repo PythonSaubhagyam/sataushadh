@@ -48,8 +48,6 @@ import AddToCart from "../utils/addToCart";
 import AddOrRemoveInWishlist from "../utils/addOrRemoveInWishlist";
 import CheckOrSetUDID from "../utils/checkOrSetUDID";
 import checkLogin from "../utils/checkLogin";
-import ProductCarousel from "../components/ProductCarousel";
-import ProductListSection from "../components/ProductListSection";
 import dompurify from "dompurify";
 import Loader from "../components/Loader";
 import BreadCrumbCom from "../components/BreadCrumbCom";
@@ -59,6 +57,7 @@ import ScrollToTop from "../components/ScrollToTop";
 import LoginModal from "../components/LoginModal";
 import { Helmet } from "react-helmet";
 import RelatedOther from "../components/RelatedOther";
+import useScrollRestoration from "../utils/useScrollRestoration";
 function ButtonIncrement(props) {
   return (
     <Button
@@ -112,6 +111,7 @@ export default function ProductDetails() {
   const navigate = useNavigate();
   const toast = useToast();
   const [isMobile] = useMediaQuery("(max-width: 1024px)");
+  useScrollRestoration();
 
   // const maxWidth = useBreakpointValue({ base: "100%", lg: "container.xl" });
   // const boxWidth = useBreakpointValue({ base: "100%", lg: "75%" });

@@ -6,11 +6,13 @@ import { useNavigate, NavLink as RouterLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import ScrollToTop from "../components/ScrollToTop";
 import MetaTags from "../context/MetaTagsContext";
+import useScrollRestoration from "../utils/useScrollRestoration";
 const Aboutus = () => {
   let { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const IsMobileView = searchParams.get("mobile") ?? "false";
   const pageUrl = "/about-us";
+  useScrollRestoration();
 
   return (
     <>
@@ -21,10 +23,11 @@ const Aboutus = () => {
         <BreadCrumbCom second={"About Us"} secondUrl={"/about-us"} />{" "}
       </Container>
       <Container maxW={"container.xl"} mb={4} px={0} centerContent>
-        <Image src={require("../assets/About us/about-us.jpg")} />
+        <Image src="https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/aboutUs.jpg" loading="lazy" alt="about us" />
         <Flex flexDirection={"column"} gap={3} maxW={"6xl"} py={10}>
           <Image
-            src={require("../assets/About us/WhatsApp Image 2020-05-15 at 6.27.36 PM (1).jpeg")}
+            src={"https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/sat_about.jpg"}
+            loading="lazy" alt="About Sat Aushadh"
           />
           <Box
             fontWeight={"600"}
@@ -68,7 +71,9 @@ const Aboutus = () => {
           <Image
             mx={"auto"}
             w={"80%"}
-            src={require("../assets/About us/suryan organic dada.jpg")}
+            src={"https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/giftbanner.jpg"}
+            alt="Image"
+            loading="lazy"
           />
           <Text color={"text.300"} my={8} textAlign={"justify"} >
             Our parent Suryan Organic has more than 10 years of natural farming,
@@ -94,34 +99,6 @@ const Aboutus = () => {
           </Button>
         </Flex>
         <hr />
-        <Box
-          w="100%"
-          backgroundSize="100%"
-          backgroundPosition="50% 100%"
-          backgroundRepeat={"no-repeat"}
-        >
-          <Heading
-            color="brand.500"
-            size="lg"
-            mx="auto"
-            align={"center"}
-            my={"5"}
-            pb={"10px"}
-          >
-            AVAILABLE AT
-          </Heading>
-        </Box>
-        <Container maxW={"container.xl"} mb={5} centerContent>
-          <Image
-            src={require("../assets/HomaPage/our-stores.jpg")}
-            w={"container.xl"}
-            alt=""
-            style={{
-              opacity: 1,
-              transition: "opacity 0.7s", // Note the corrected syntax here
-            }}
-          />
-        </Container>
       </Container>
       <ScrollToTop />
       {IsMobileView !== "true" && <Footer />}

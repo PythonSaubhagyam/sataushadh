@@ -182,6 +182,7 @@ export default function CarouselItem({
                 cursor={bannerData?.image_url ? "pointer" : ""}
                 key={index}
                 src={bannerData.image}
+                loading="lazy"
                 alt={bannerData.alt_text}
                 onClick={() =>
                   bannerData?.image_url

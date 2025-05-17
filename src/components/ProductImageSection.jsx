@@ -41,6 +41,8 @@ function ProductImageSection({ images }) {
               <GridItem key={index} px={4}>
                 <Image
                   src={url}
+                  loading="lazy"
+                  alt="Product Image"
                   ml={{ md: 9 }}
                   //height={{ base: "60px", md: "60px" }}
                   maxW={{ base: "50px", md: "60px" }}
@@ -70,7 +72,7 @@ function ProductImageSection({ images }) {
           />
         ) : (
           <>
-            <Image width={"250px"} src={images?.[selectedImageIndex]} />
+            <Image width={"250px"} alt="Product image" loading="lazy" src={images?.[selectedImageIndex]} />
           </>
         )}
       </Flex>

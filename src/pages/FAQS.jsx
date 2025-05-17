@@ -7,12 +7,14 @@ import ScrollToTop from "../components/ScrollToTop";
 
 import { useLocation } from "react-router-dom";
 import MetaTags from "../context/MetaTagsContext";
+import useScrollRestoration from "../utils/useScrollRestoration";
 
 
 export default function FAQS() {
   let { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const IsMobileView = searchParams.get("mobile") ?? "false";
+  useScrollRestoration();
 
 
   const generalInformationData = [

@@ -3,17 +3,19 @@ import Footer from "../components/Footer";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import Navbar from "../components/Navbar";
 import { Box, Container, VStack, Image, Text, Heading } from "@chakra-ui/react";
-import ScrollToTop from "../components/ScrollToTop";
 import { useLocation } from "react-router-dom";
+import ScrollToTop from "../components/ScrollToTop";
 import MetaTags from "../context/MetaTagsContext";
-
+import useScrollRestoration from "../utils/useScrollRestoration";
 
 const PrivacyPolicy = () => {
+
   let { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const IsMobileView = searchParams.get("mobile") ?? "false";
-  const pageUrl = "/privacy-policy";
+  useScrollRestoration();
 
+  const pageUrl = "/privacy-policy";
   return (
     <>
       <MetaTags pageUrl={pageUrl} />
@@ -27,7 +29,7 @@ const PrivacyPolicy = () => {
         />{" "}
       </Container>
       <Container maxW={"container.xl"} mb={4} px={0} centerContent>
-        <Image src={require("../assets/Privacy-policy/Privacy_Policy.jpg")} />
+        <Image loading="lazy" src="https://s3organicbucket.s3.amazonaws.com/master/Products/images/Privacy_Policy.jpg" alt="Privacy Policy" />
         <VStack maxW={"6xl"} my={8} px={6}>
           <Box color={"text.300"} textAlign={"justify"}>
             We at Suryan Organic are committed to protecting and safe guarding
@@ -35,7 +37,7 @@ const PrivacyPolicy = () => {
             <br />
             <br />
             This Privacy Policy describes the types of personal information we
-            collect on the Suryan Organic website (www.sataushadh.com) further
+            collect on the Suryan Organic website (<b>www.cofeeco.in</b>) further
             referenced as girgauveda.com, how we may use that information and
             with whom we may share it. Our Privacy Policy also describes the
             measures we take to protect the security of this information as well
@@ -43,9 +45,9 @@ const PrivacyPolicy = () => {
             any time. It also explains how you can object to the processing of
             your personal information or to receiving communications about our
             products and services. This Privacy Policy governs only information
-            provided to www.sataushadh.com. It does not govern any other
-            information or communications that may have been collected in any
-            other manner like promotions, personal contact programmer etc.
+            provided to www.cofeeco.in. It does not govern any other information
+            or communications that may have been collected in any other manner
+            like promotions, personal contact programmer etc.
             <br />
             <br />
             By accepting the Privacy Policy, you expressly consent to our use
@@ -53,13 +55,13 @@ const PrivacyPolicy = () => {
             Privacy Policy.
             <br />
             <br />
-            <Text fontWeight={600} fontSize={"24px"}>
+            <Text fontWeight={600} fontSize={{ md: "24px", base: "22px" }}>
               Information We Collect:-
             </Text>
             <br />
-            In general, you can visit the www.sataushadh.com without telling us
-            who you are or revealing any personally identifiable information.
-            You can however, also register at our website which enables us to
+            In general, you can visit the <b>www.cofeeco.in</b> without telling us who
+            you are or revealing any personally identifiable information. You
+            can however, also register at our website which enables us to
             contact you by email or text messages on your mobile phone to inform
             you about our products or respond to your comments or queries. As
             part of the registration process, we collect and store your personal
@@ -78,7 +80,7 @@ const PrivacyPolicy = () => {
             identifiable information as described under this Privacy Policy.
             <br />
             <br />
-            <Text fontWeight={600} fontSize={"24px"}>
+            <Text fontWeight={600} fontSize={{ md: "24px", base: "22px" }}>
               Credit Card, Debit Card and Banking Information:-
             </Text>
             <br />
@@ -90,7 +92,7 @@ const PrivacyPolicy = () => {
             stored by girgauveda.com.
             <br />
             <br />
-            <Text fontWeight={600} fontSize={"24px"}>
+            <Text fontWeight={600} fontSize={{ md: "24px", base: "22px" }}>
               Data Hosting:-
             </Text>
             <br />
@@ -103,7 +105,7 @@ const PrivacyPolicy = () => {
             consumer data
             <br />
             <br />
-            <Text fontWeight={600} fontSize={"24px"}>
+            <Text fontWeight={600} fontSize={{ md: "24px", base: "22px" }}>
               How We Use Your Personally Identifiable Information:-
             </Text>
             <br />
@@ -159,7 +161,7 @@ const PrivacyPolicy = () => {
             by way of emails or text messages/sms and phone calls
             <br />
             <br />
-            <Text fontWeight={600} fontSize={"24px"}>
+            <Text fontWeight={600} fontSize={{ md: "24px", base: "22px" }}>
               Technologies that Allow Us to Customize Your Experience on
               girgauveda.com:-
             </Text>
@@ -179,7 +181,7 @@ const PrivacyPolicy = () => {
             preferences.
             <br />
             <br />
-            <Text fontWeight={600} fontSize={"24px"}>
+            <Text fontWeight={600} fontSize={{ md: "24px", base: "22px" }}>
               Information We Share and Who We Share With:-
             </Text>
             <br />
@@ -282,7 +284,7 @@ const PrivacyPolicy = () => {
             website, we will delete the information from our records.
             <br />
             <br />
-            <Text fontWeight={600} fontSize={"24px"}>
+            <Text fontWeight={600} fontSize={{ md: "24px", base: "20px" }}>
               How We Protect Personal Information:-
             </Text>
             <br />
@@ -293,7 +295,7 @@ const PrivacyPolicy = () => {
             the 'contact us' page.
             <br />
             <br />
-            <Text fontWeight={600} fontSize={"24px"}>
+            <Text fontWeight={600} fontSize={{ md: "24px", base: "21px" }}>
               Updates to Our Privacy Policy:-
             </Text>
             <br />
@@ -305,39 +307,9 @@ const PrivacyPolicy = () => {
           <br />
         </VStack>
       </Container>
-      <Box
-        w="100%"
-        backgroundSize="100%"
-        backgroundPosition="50% 100%"
-        backgroundRepeat={"no-repeat"}
-      >
-        <Heading
-          color="brand.500"
-          size="lg"
-          mx="auto"
-          align={"center"}
-          my={"5"}
-          pb={"10px"}
-        >
-          AVAILABLE AT
-        </Heading>
-      </Box>
-      <Container maxW={"container.xl"} mb={5} px={20} centerContent>
-        <Image
-          src={
-            "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/01.jpg"
-          }
-          w={"container.xl"}
-          alt=""
-          style={{
-            opacity: 1,
-            transition: "opacity 0.7s", // Note the corrected syntax here
-          }}
-        />
-      </Container>
       <ScrollToTop />
-      {IsMobileView !== "true" && <Footer />}
 
+      {IsMobileView !== "true" && <Footer />}
 
     </>
   );

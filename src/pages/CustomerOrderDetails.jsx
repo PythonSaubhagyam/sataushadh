@@ -37,6 +37,7 @@ import {
 } from "@chakra-ui/react";
 import ReactStars from "react-stars";
 import { BsCheck, BsPrinter, BsDownload } from "react-icons/bs";
+import useScrollRestoration from "../utils/useScrollRestoration";
 
 export default function CustomerOrderDetails() {
   const [orderDetails, setOrderDetails] = useState([]);
@@ -57,6 +58,7 @@ export default function CustomerOrderDetails() {
   useEffect(() => {
     getOrderDetails(); // eslint-disable-next-line
   }, []);
+  useScrollRestoration();
 
   async function getOrderDetails() {
     const response = await client.get(`/orders/${orderId}`, {

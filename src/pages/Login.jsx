@@ -17,11 +17,13 @@ import checkLogin from "../utils/checkLogin";
 import CheckOrSetUDID from "../utils/checkOrSetUDID";
 import CartEmitter from "../components/EventEmitter";
 import MetaTags from "../context/MetaTagsContext";
+import useScrollRestoration from "../utils/useScrollRestoration";
 
 export default function Login() {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [loading, setLoading] = useState(false);
+  useScrollRestoration();
 
   const navigate = useNavigate();
   const toast = useToast();
